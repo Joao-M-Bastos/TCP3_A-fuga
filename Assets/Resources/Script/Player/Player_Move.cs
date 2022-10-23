@@ -38,6 +38,16 @@ public class Player_Move : MonoBehaviour
 
         DoRagdollEffect();
 
+        if (Input.GetKeyDown(KeyCode.Space)) Jump(JumpType());
+    }
+
+    private void FixedUpdate()
+    {
+        if (OnGround())
+            Debug.Log("A");
+        else
+            Debug.Log("b");
+
         if (CanMove()) Move();
     }
 
@@ -94,8 +104,6 @@ public class Player_Move : MonoBehaviour
 
         Walk(direction);
 
-        if (Input.GetKeyDown(KeyCode.Space)) Jump(JumpType());
-
         Fly();
     }
 
@@ -142,10 +150,11 @@ public class Player_Move : MonoBehaviour
             case 0:
                 break;
             case 1:
-                this.playerRB.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
+                this.playerRB.velocity = new Vector3(playerRB.velocity.x, playerJumpForce, playerRB.velocity.z);
+                //this.playerRB.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
                 break;
             case 2:
-                this.playerRB.AddForce(Vector3.up * playerJumpForce / 2, ForceMode.Impulse);
+                this.playerRB.velocity = new Vector3(playerRB.velocity.x, playerJumpForce / 1.6f, playerRB.velocity.z);
                 doubleJumpCount--;
                 break;
         }
