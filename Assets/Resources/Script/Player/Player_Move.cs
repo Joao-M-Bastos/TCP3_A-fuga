@@ -15,12 +15,14 @@ public class Player_Move : MonoBehaviour
     [SerializeField] private Transform cam, onGroundPointA, onGroundPointB;
     [SerializeField] private float frictionValue, playerBaseSpeed;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioClipStep1, audioClipStep2, audioClipGetHit, audioClipGetHitHonk, audioClipJump;
 
     [SerializeField] private float maxDoubleJumpCount;
 
-    private bool isWingsOpen;
+    private bool isWingsOpen, stepFirstSound;
     
-    public float playerSpeed, playerJumpForce, playerPlaneValue;
+    public float playerSpeed, playerJumpForce, playerPlaneValue, stepSoundDelay;
 
     private float turnSmoothTime, turnSmoothVelocity, doubleJumpCount;
 
@@ -38,7 +40,11 @@ public class Player_Move : MonoBehaviour
 
         DoRagdollEffect();
 
-        if (Input.GetKeyDown(KeyCode.Space)) Jump(JumpType());
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            audioSource.PlayOneShot(audioClipJump, 0.8f);
+            Jump(JumpType());
+        }
     }
 
     private void FixedUpdate()
@@ -49,6 +55,24 @@ public class Player_Move : MonoBehaviour
             Debug.Log("b");
 
         if (CanMove()) Move();
+
+        if (this.playerRB.velocity.magnitude > 0.1f && stepSoundDelay <= 0 && OnGround() && ragDollEffect == false)
+        {
+            if (stepFirstSound)
+            {
+                audioSource.PlayOneShot(audioClipStep1, 1f);
+                stepFirstSound = false;
+                stepSoundDelay = 16;
+            }
+            else
+            {
+                audioSource.PlayOneShot(audioClipStep2, 1f);
+                stepFirstSound = true;
+                stepSoundDelay = 16;
+            }
+        }
+
+        if (stepSoundDelay > 0) { stepSoundDelay -= 1; }
     }
 
     //--------------------------------- UPDATE INSTANCES --------------------------------
@@ -59,6 +83,8 @@ public class Player_Move : MonoBehaviour
         this.playerRB = this.GetComponent<Rigidbody>();
         this.turnSmoothTime = 0.1f;
         this.isWingsOpen = false;
+        this.stepSoundDelay = 0f;
+        this.stepFirstSound = true;
         UpdateSpeed();
     }
 
@@ -199,6 +225,9 @@ public class Player_Move : MonoBehaviour
     {
         if (colisao.gameObject.CompareTag("DoRagdoll") && !ragDollEffect)
         {
+            audioSource.PlayOneShot(audioClipGetHit, 0.8f);
+            audioSource.PlayOneShot(audioClipGetHitHonk, 1);
+
             Debug.Log("A");
             RagDollOn();
         }
