@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 8065310149713506074}
   - component: {fileID: 8314866553839770534}
   - component: {fileID: 2203807218835272325}
+  - component: {fileID: 8235261644878797807}
   m_Layer: 0
   m_Name: barra central
   m_TagString: DoRagdoll
@@ -342,3 +343,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02, y: 0.03117096, z: 0.030737618}
   m_Center: {x: -1.4325706e-19, y: -0.0009136018, z: -0.005368813}
+--- !u!114 &8235261644878797807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6243042226415901527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c678b3aab527d43a36f80214070361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -6,13 +6,16 @@ using Photon.Pun;
 public class Player_Move : MonoBehaviour
 {
 
+    //---------------------------------- VARIAVEIS -----------------------------------------
+    private OnGround onGoundInstance;
+    private Player_RagdollEffect playerRedDoll;
+
     private float AxisX, AxisY;
 
     private Rigidbody playerRB;
-    private LayerMask groundLayerMask;
 
     [SerializeField] private Animator wingAnimator;
-    [SerializeField] private Transform cam, onGroundPointA, onGroundPointB;
+    [SerializeField] private Transform cam;
     [SerializeField] private float frictionValue, playerBaseSpeed;
 
 
@@ -24,31 +27,37 @@ public class Player_Move : MonoBehaviour
 
     private float turnSmoothTime, turnSmoothVelocity, doubleJumpCount;
 
-    public bool ragDollEffect, isChangingRagDoll;
+    private Vector3 playerActualSpeed;
 
     private PhotonView playerView;
 
     private void Awake()
     {
+        onGoundInstance = GetComponentInChildren<OnGround>();
         playerView = GetComponent<PhotonView>();
+        this.playerRB = this.GetComponent<Rigidbody>();
+        playerRedDoll = this.GetComponent<Player_RagdollEffect>();
     }
 
     private void Start()
     {
         if (!playerView.IsMine)
-        {
-            Destroy(GetComponentInChildren<Camera>().gameObject);
-            Destroy(GetComponentInChildren<Cinemachine.CinemachineCollider>().gameObject);
-            Destroy(playerRB);
-        }
+            DestoyExtra();
         else
             StartValues();
     }
 
+    public void DestoyExtra()
+    {
+        Destroy(GetComponentInChildren<Camera>().gameObject);
+        Destroy(GetComponentInChildren<Cinemachine.CinemachineCollider>().gameObject);
+        Destroy(playerRB);
+        Destroy(onGoundInstance);
+        Destroy(playerRedDoll);
+    }
+
     public void StartValues()
     {
-        this.groundLayerMask = LayerMask.GetMask("Ground");
-        this.playerRB = this.GetComponent<Rigidbody>();
         this.turnSmoothTime = 0.1f;
         this.isWingsOpen = false;
         UpdateSpeed();
@@ -61,7 +70,7 @@ public class Player_Move : MonoBehaviour
         {           
             UpdateValues();
 
-            if (Input.GetKeyDown(KeyCode.Space) && !ragDollEffect) Jump(JumpType());
+            if (Input.GetKeyDown(KeyCode.Space) && !playerRedDoll.IsRagDoll) Jump(JumpType());
 
             DoRagdollEffect();
         }
@@ -79,7 +88,8 @@ public class Player_Move : MonoBehaviour
 
     public void UpdateValues()
     {
-        if (OnGround() && doubleJumpCount != maxDoubleJumpCount) doubleJumpCount = maxDoubleJumpCount;
+        playerActualSpeed = playerRB.velocity;
+        if (onGoundInstance.isOnGround && doubleJumpCount != maxDoubleJumpCount) doubleJumpCount = maxDoubleJumpCount;
     }
 
     public void UpdateSpeed()
@@ -89,9 +99,6 @@ public class Player_Move : MonoBehaviour
 
     public void Friction()
     {
-        Vector3 playerActualSpeed;
-        playerActualSpeed = this.playerRB.velocity;
-
         if (Mathf.Abs(playerActualSpeed.x) > 1)
             playerActualSpeed.x -= Mathf.Sign(playerActualSpeed.x) * frictionValue * Time.deltaTime;
         else
@@ -101,8 +108,6 @@ public class Player_Move : MonoBehaviour
             playerActualSpeed.z -= Mathf.Sign(playerActualSpeed.z) * frictionValue * Time.deltaTime;
         else
             playerActualSpeed.z = 0;
-
-        this.playerRB.velocity = playerActualSpeed;
     }
 
     //----------------------------------------- ACTIONS -----------------------------------
@@ -126,7 +131,7 @@ public class Player_Move : MonoBehaviour
     {
         if (direction.magnitude >= 0.1f)
         {
-            if (OnGround())
+            if (onGoundInstance.isOnGround)
             {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
 
@@ -139,17 +144,20 @@ public class Player_Move : MonoBehaviour
                 moveDir.y = this.playerRB.velocity.y;
 
                 this.playerRB.velocity = moveDir;
-
+                //if (Mathf.Abs(playerActualSpeed.x) + Mathf.Abs(playerActualSpeed.z) < 5)
+                //    this.playerRB.velocity += moveDir * Time.deltaTime;
             }
             else if (isWingsOpen)
             {
                 Vector3 moveDir = this.transform.forward;
 
+                moveDir *= playerSpeed;
+
                 moveDir.y = playerRB.velocity.y;
 
                 this.transform.Rotate(new Vector3(0, AxisX * 40, 0) * Time.deltaTime);
 
-                this.playerRB.velocity = moveDir * playerSpeed;
+                this.playerRB.velocity = moveDir;
             }
         }
         else
@@ -163,8 +171,10 @@ public class Player_Move : MonoBehaviour
         switch (jumpType)
         {
             case 0:
+                Debug.Log("B");
                 break;
             case 1:
+                Debug.Log("A");
                 this.playerRB.velocity = new Vector3(playerRB.velocity.x, playerJumpForce, playerRB.velocity.z);
                 //this.playerRB.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
                 break;
@@ -177,7 +187,7 @@ public class Player_Move : MonoBehaviour
 
     public void DoRagdollEffect()
     {
-        if (ragDollEffect)
+        if (playerRedDoll.IsRagDoll)
         {
             this.playerRB.freezeRotation = false;
         }
@@ -195,61 +205,27 @@ public class Player_Move : MonoBehaviour
         }
     }
 
-    public IEnumerator RagDollOff()
+    public void ApplyForceIn(Vector3 force)
     {
-        yield return new WaitForSeconds(5f);
-        this.playerRB.velocity = new Vector3(0, 0, 0);
-        ragDollEffect = false;
-        isChangingRagDoll = false;
-    }
-
-    public void RagDollOn()
-    {
-        ragDollEffect = true;
-    }
-
-    //-------------------------------------- TESTS ----------------------------------
-
-    private void OnCollisionEnter(Collision colisao)
-    {
-        if (colisao.gameObject.CompareTag("DoRagdoll") && !ragDollEffect)
+        if (this.playerRedDoll.IsRagDoll)
         {
-            RagDollOn();
-        }
-        else if (colisao.gameObject.CompareTag("Ground") && ragDollEffect && !isChangingRagDoll)
-        {
-            isChangingRagDoll = true;
-            StartCoroutine(RagDollOff());
+            playerRB.AddForce(force);
         }
     }
 
-    private void OnCollisionStay(Collision colisao)
-    {
-        if (colisao.gameObject.CompareTag("Ground") && ragDollEffect && !isChangingRagDoll)
-        {
-            isChangingRagDoll = true;
-            StartCoroutine(RagDollOff());
-        }
-    }
+    //--------------------------------TESTS----------------------------------
 
-
-    public bool OnGround()
-    {
-        if (Physics.Raycast(onGroundPointA.position, -Vector3.up, 0.01f, groundLayerMask)) return true;
-        if (Physics.Raycast(onGroundPointB.position, -Vector3.up, 0.01f, groundLayerMask)) return true;
-        return false;
-    }
 
     public float JumpType()
     {
-        if (OnGround()) return 1;
+        if (onGoundInstance.isOnGround) return 1;
         else if (doubleJumpCount > 0) return 2;
         return 0;
     }
 
     public bool CanMove()
     {
-        if (!ragDollEffect)
+        if (!playerRedDoll.IsRagDoll)
         {
             return true;
         }
@@ -258,7 +234,7 @@ public class Player_Move : MonoBehaviour
 
     public bool CanOpenWings()
     {
-        if (Input.GetKey(KeyCode.Space) && !OnGround() && this.playerRB.velocity.y < -playerPlaneValue + 0.01f) return true;
+        if (Input.GetKey(KeyCode.Space) && !onGoundInstance.isOnGround && this.playerRB.velocity.y < -playerPlaneValue + 0.01f) return true;
         return false;
     }
 
