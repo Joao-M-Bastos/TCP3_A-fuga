@@ -11,6 +11,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public TMP_InputField roomInputField;
     public GameObject lobbyPanel;
     public GameObject roomPanel;
+    public GameObject selectPanel;
     public TextMeshProUGUI roomName;
 
     public RoomItem roomItemPrefab;
@@ -30,6 +31,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         lobbyPanel.SetActive(true);
         roomPanel.SetActive(false);
+        selectPanel.SetActive(false);
     }
 
     private void Start()
@@ -41,7 +43,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (roomInputField.text.Length >= 1)
         {
-            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 3, BroadcastPropsChangeToAll = true });
+            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 4, BroadcastPropsChangeToAll = true });
 
         }
     }
@@ -134,13 +136,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PlayerItem newplayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newplayerItem.SetPlayerInfo(player.Value);
 
-            if(player.Value == PhotonNetwork.LocalPlayer)
+            if (player.Value == PhotonNetwork.LocalPlayer)
             {
                 newplayerItem.ApplyLocalChanges();
             }
+            //else Destroy(newplayerItem.gameObject);
 
             playerItemsList.Add(newplayerItem);
-        } 
+        }
     }
     void Update()
     {

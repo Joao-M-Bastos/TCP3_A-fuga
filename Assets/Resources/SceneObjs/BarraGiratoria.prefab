@@ -355,3 +355,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c678b3aab527d43a36f80214070361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasBonkSFX: 1

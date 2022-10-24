@@ -9,6 +9,7 @@ public class Player_Move : MonoBehaviour
     //---------------------------------- VARIAVEIS -----------------------------------------
     private OnGround onGoundInstance;
     private Player_RagdollEffect playerRedDoll;
+    private PlayerMEnu playerMenu;
 
     private float AxisX, AxisY;
 
@@ -16,8 +17,11 @@ public class Player_Move : MonoBehaviour
 
     [SerializeField] private Animator wingAnimator;
     [SerializeField] private Transform cam;
-    [SerializeField] private float frictionValue, playerBaseSpeed;
+    [SerializeField] private float frictionValue, playerBaseSpeed, stepSoundDelay;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioClipJump;
+    [SerializeField] private AudioClip[] audioClipSteps;
 
     [SerializeField] private float maxDoubleJumpCount;
 
@@ -35,6 +39,7 @@ public class Player_Move : MonoBehaviour
     {
         onGoundInstance = GetComponentInChildren<OnGround>();
         playerView = GetComponent<PhotonView>();
+        playerMenu = GetComponent<PlayerMEnu>();
         this.playerRB = this.GetComponent<Rigidbody>();
         playerRedDoll = this.GetComponent<Player_RagdollEffect>();
     }
@@ -54,11 +59,13 @@ public class Player_Move : MonoBehaviour
         Destroy(playerRB);
         Destroy(onGoundInstance);
         Destroy(playerRedDoll);
+        Destroy(playerMenu);
     }
 
     public void StartValues()
     {
         this.turnSmoothTime = 0.1f;
+        this.stepSoundDelay = 5f;
         this.isWingsOpen = false;
         UpdateSpeed();
     }
@@ -67,7 +74,7 @@ public class Player_Move : MonoBehaviour
     void Update()
     {
         if (playerView.IsMine)
-        {           
+        {
             UpdateValues();
 
             if (Input.GetKeyDown(KeyCode.Space) && !playerRedDoll.IsRagDoll) Jump(JumpType());
@@ -133,6 +140,9 @@ public class Player_Move : MonoBehaviour
         {
             if (onGoundInstance.isOnGround)
             {
+                if (stepSoundDelay <= 0) PlayStepFX();
+                else stepSoundDelay -= 1;
+
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
 
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -168,17 +178,20 @@ public class Player_Move : MonoBehaviour
 
     public void Jump(float jumpType)
     {
+
         switch (jumpType)
         {
             case 0:
                 Debug.Log("B");
                 break;
             case 1:
+                audioSource.PlayOneShot(audioClipJump, 0.8f);
                 Debug.Log("A");
                 this.playerRB.velocity = new Vector3(playerRB.velocity.x, playerJumpForce, playerRB.velocity.z);
                 //this.playerRB.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
                 break;
             case 2:
+                audioSource.PlayOneShot(audioClipJump, 0.8f);
                 this.playerRB.velocity = new Vector3(playerRB.velocity.x, playerJumpForce / 1.6f, playerRB.velocity.z);
                 doubleJumpCount--;
                 break;
@@ -205,6 +218,16 @@ public class Player_Move : MonoBehaviour
         }
     }
 
+    public void PlayStepFX()
+    {
+        if ((playerActualSpeed.x * playerActualSpeed.z) != 0) {
+            int randomNum = Random.Range(0, audioClipSteps.Length - 1);
+            audioSource.PlayOneShot(audioClipSteps[randomNum], 0.4f - (0.3f * randomNum));
+            stepSoundDelay = 16; 
+        }
+
+    }
+
     public void ApplyForceIn(Vector3 force)
     {
         if (this.playerRedDoll.IsRagDoll)
@@ -225,7 +248,7 @@ public class Player_Move : MonoBehaviour
 
     public bool CanMove()
     {
-        if (!playerRedDoll.IsRagDoll)
+        if (!playerRedDoll.IsRagDoll) //&& !playerMenu.IsMenuOn)
         {
             return true;
         }
@@ -237,7 +260,6 @@ public class Player_Move : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && !onGoundInstance.isOnGround && this.playerRB.velocity.y < -playerPlaneValue + 0.01f) return true;
         return false;
     }
-
 }
 
 
