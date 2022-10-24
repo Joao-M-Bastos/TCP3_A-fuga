@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Player_Move : MonoBehaviour
 {
 
-    //------------------------------------------- VARIAVEIS ---------------------------------------
     private float AxisX, AxisY;
 
     private Rigidbody playerRB;
@@ -19,39 +19,31 @@ public class Player_Move : MonoBehaviour
     [SerializeField] private float maxDoubleJumpCount;
 
     private bool isWingsOpen;
-    
+
     public float playerSpeed, playerJumpForce, playerPlaneValue;
 
     private float turnSmoothTime, turnSmoothVelocity, doubleJumpCount;
 
-    public bool ragDollEffect;
+    public bool ragDollEffect, isChangingRagDoll;
+
+    private PhotonView playerView;
 
     private void Awake()
     {
-        StartValues();
+        playerView = GetComponent<PhotonView>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        UpdateValues();
-
-        DoRagdollEffect();
-
-        if (Input.GetKeyDown(KeyCode.Space)) Jump(JumpType());
-    }
-
-    private void FixedUpdate()
-    {
-        if (OnGround())
-            Debug.Log("A");
+        if (!playerView.IsMine)
+        {
+            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(GetComponentInChildren<Cinemachine.CinemachineCollider>().gameObject);
+            Destroy(playerRB);
+        }
         else
-            Debug.Log("b");
-
-        if (CanMove()) Move();
+            StartValues();
     }
-
-    //--------------------------------- UPDATE INSTANCES --------------------------------
 
     public void StartValues()
     {
@@ -61,6 +53,29 @@ public class Player_Move : MonoBehaviour
         this.isWingsOpen = false;
         UpdateSpeed();
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (playerView.IsMine)
+        {           
+            UpdateValues();
+
+            if (Input.GetKeyDown(KeyCode.Space) && !ragDollEffect) Jump(JumpType());
+
+            DoRagdollEffect();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (playerView.IsMine)
+        {
+            if (CanMove()) Move();
+        }
+    }
+
+    //--------------------------------- UPDATE INSTANCES --------------------------------
 
     public void UpdateValues()
     {
@@ -81,7 +96,7 @@ public class Player_Move : MonoBehaviour
             playerActualSpeed.x -= Mathf.Sign(playerActualSpeed.x) * frictionValue * Time.deltaTime;
         else
             playerActualSpeed.x = 0;
-        
+
         if (Mathf.Abs(playerActualSpeed.z) > 1)
             playerActualSpeed.z -= Mathf.Sign(playerActualSpeed.z) * frictionValue * Time.deltaTime;
         else
@@ -94,7 +109,7 @@ public class Player_Move : MonoBehaviour
 
     public void Move()
     {
-        
+
         Vector3 direction;
 
         AxisX = Input.GetAxis("Horizontal");
@@ -185,11 +200,11 @@ public class Player_Move : MonoBehaviour
         yield return new WaitForSeconds(5f);
         this.playerRB.velocity = new Vector3(0, 0, 0);
         ragDollEffect = false;
+        isChangingRagDoll = false;
     }
 
     public void RagDollOn()
     {
-        this.transform.rotation = new Quaternion(0, 0, 0, 0);
         ragDollEffect = true;
     }
 
@@ -199,20 +214,26 @@ public class Player_Move : MonoBehaviour
     {
         if (colisao.gameObject.CompareTag("DoRagdoll") && !ragDollEffect)
         {
-            Debug.Log("A");
             RagDollOn();
         }
-        else if (colisao.gameObject.CompareTag("Ground") && ragDollEffect)
+        else if (colisao.gameObject.CompareTag("Ground") && ragDollEffect && !isChangingRagDoll)
         {
-            Debug.Log("B");
+            isChangingRagDoll = true;
+            StartCoroutine(RagDollOff());
+        }
+    }
+
+    private void OnCollisionStay(Collision colisao)
+    {
+        if (colisao.gameObject.CompareTag("Ground") && ragDollEffect && !isChangingRagDoll)
+        {
+            isChangingRagDoll = true;
             StartCoroutine(RagDollOff());
         }
     }
 
 
-
-
-public bool OnGround()
+    public bool OnGround()
     {
         if (Physics.Raycast(onGroundPointA.position, -Vector3.up, 0.01f, groundLayerMask)) return true;
         if (Physics.Raycast(onGroundPointB.position, -Vector3.up, 0.01f, groundLayerMask)) return true;
