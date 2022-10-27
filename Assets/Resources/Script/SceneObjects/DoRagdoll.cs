@@ -6,13 +6,11 @@ public class DoRagdoll : MonoBehaviour
 {
     public bool hasBonkSFX;
 
-    
-
     private void OnCollisionEnter(Collision collision)
     {
         try
         {
-            Player_RagdollEffect playerRagdoll = collision.gameObject.GetComponent<Player_RagdollEffect>();
+            RagdollEffect playerRagdoll = collision.gameObject.GetComponent<RagdollEffect>();
             playerRagdoll.BonkSFX(hasBonkSFX);
         }
         catch { }
@@ -23,7 +21,7 @@ public class DoRagdoll : MonoBehaviour
     {
         try
         {
-            Player_RagdollEffect playerRagdoll = colisao.gameObject.GetComponent<Player_RagdollEffect>();
+            RagdollEffect playerRagdoll = colisao.gameObject.GetComponent<RagdollEffect>();
             if (!playerRagdoll.IsRagDoll)
                 playerRagdoll.RagDollOn();            
         }
@@ -34,7 +32,7 @@ public class DoRagdoll : MonoBehaviour
     {
         try
         {
-            Player_RagdollEffect playerRagdoll = colisao.gameObject.GetComponent<Player_RagdollEffect>();
+            RagdollEffect playerRagdoll = colisao.gameObject.GetComponent<RagdollEffect>();
             if (!playerRagdoll.IsRagDoll)
                 playerRagdoll.RagDollOn();
         }

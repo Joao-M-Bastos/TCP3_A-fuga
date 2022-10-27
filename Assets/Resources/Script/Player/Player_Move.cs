@@ -8,8 +8,10 @@ public class Player_Move : MonoBehaviour
 
     //---------------------------------- VARIAVEIS -----------------------------------------
     private OnGround onGoundInstance;
-    private Player_RagdollEffect playerRedDoll;
+    private RagdollEffect playerRedDoll;
     private PlayerMEnu playerMenu;
+
+    private HasWallOnFront hasWall;
 
     private float AxisX, AxisY;
 
@@ -29,20 +31,23 @@ public class Player_Move : MonoBehaviour
 
     public float playerSpeed, playerJumpForce, playerPlaneValue;
 
-    private float turnSmoothTime, turnSmoothVelocity, doubleJumpCount;
+    private float turnSmoothTime, turnSmoothVelocity, doubleJumpCount, dashCoolDown;
 
     private Vector3 playerActualSpeed;
 
     private PhotonView playerView;
 
+    private Player_Push playerPush = new Player_Push();
+
     private void Awake()
     {
         onGoundInstance = GetComponentInChildren<OnGround>();
+        hasWall = new HasWallOnFront();
         playerView = GetComponent<PhotonView>();
         playerMenu = GetComponent<PlayerMEnu>();
         this.playerRB = this.GetComponent<Rigidbody>();
-        playerRedDoll = this.GetComponent<Player_RagdollEffect>();
-    }
+        playerRedDoll = this.GetComponent<RagdollEffect>();
+    } 
 
     private void Start()
     {
@@ -64,7 +69,7 @@ public class Player_Move : MonoBehaviour
 
     public void StartValues()
     {
-        this.turnSmoothTime = 0.1f;
+        this.turnSmoothTime = 0.05f;
         this.stepSoundDelay = 5f;
         this.isWingsOpen = false;
         UpdateSpeed();
@@ -77,9 +82,24 @@ public class Player_Move : MonoBehaviour
         {
             UpdateValues();
 
-            if (Input.GetKeyDown(KeyCode.Space) && !playerRedDoll.IsRagDoll) Jump(JumpType());
+            playerPush.PushOponent(this.transform, Mathf.Abs(this.playerRB.velocity.x) + Mathf.Abs(this.playerRB.velocity.z));
+
+            if (!playerRedDoll.IsRagDoll)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                    Jump(JumpType());
+
+                if (Input.GetKeyDown(KeyCode.LeftShift) && dashCoolDown > 0 && !isWingsOpen)
+                {
+                    playerPush.PlayerDash(this.playerRB);
+                    dashCoolDown = 0;
+                }
+                else
+                    dashCoolDown += Time.deltaTime;
+            }
 
             DoRagdollEffect();
+
         }
     }
 
@@ -106,15 +126,17 @@ public class Player_Move : MonoBehaviour
 
     public void Friction()
     {
-        if (Mathf.Abs(playerActualSpeed.x) > 1)
+        if (Mathf.Abs(playerActualSpeed.x) > 1 && Mathf.Abs(playerActualSpeed.x) < 5)
             playerActualSpeed.x -= Mathf.Sign(playerActualSpeed.x) * frictionValue * Time.deltaTime;
         else
             playerActualSpeed.x = 0;
 
-        if (Mathf.Abs(playerActualSpeed.z) > 1)
+        if (Mathf.Abs(playerActualSpeed.z) > 1 && Mathf.Abs(playerActualSpeed.z) < 5)
             playerActualSpeed.z -= Mathf.Sign(playerActualSpeed.z) * frictionValue * Time.deltaTime;
         else
             playerActualSpeed.z = 0;
+
+        //this.playerRB.velocity = playerActualSpeed;
     }
 
     //----------------------------------------- ACTIONS -----------------------------------
@@ -153,28 +175,26 @@ public class Player_Move : MonoBehaviour
 
                 moveDir.y = this.playerRB.velocity.y;
 
-                this.playerRB.velocity = moveDir;
-                //if (Mathf.Abs(playerActualSpeed.x) + Mathf.Abs(playerActualSpeed.z) < 5)
-                //    this.playerRB.velocity += moveDir * Time.deltaTime;
+                if (Mathf.Abs(playerActualSpeed.x) + Mathf.Abs(playerActualSpeed.z) <= 5)
+                    this.playerRB.velocity = moveDir;
             }
             else if (isWingsOpen)
             {
-                Vector3 moveDir = this.transform.forward;
+                Vector3 moveDir = Vector3.zero;
+                
+                if (!hasWall.HasWall(this.transform))                    
+                    moveDir = this.transform.forward;
 
                 moveDir *= playerSpeed;
 
                 moveDir.y = playerRB.velocity.y;
 
                 this.transform.Rotate(new Vector3(0, AxisX * 40, 0) * Time.deltaTime);
-
+                
                 this.playerRB.velocity = moveDir;
             }
         }
-        else
-        {
-            Friction();
-        }
-    }
+   }
 
     public void Jump(float jumpType)
     {
@@ -182,11 +202,9 @@ public class Player_Move : MonoBehaviour
         switch (jumpType)
         {
             case 0:
-                Debug.Log("B");
                 break;
             case 1:
                 audioSource.PlayOneShot(audioClipJump, 0.8f);
-                Debug.Log("A");
                 this.playerRB.velocity = new Vector3(playerRB.velocity.x, playerJumpForce, playerRB.velocity.z);
                 //this.playerRB.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
                 break;
@@ -226,14 +244,6 @@ public class Player_Move : MonoBehaviour
             stepSoundDelay = 16; 
         }
 
-    }
-
-    public void ApplyForceIn(Vector3 force)
-    {
-        if (this.playerRedDoll.IsRagDoll)
-        {
-            playerRB.AddForce(force);
-        }
     }
 
     //--------------------------------TESTS----------------------------------

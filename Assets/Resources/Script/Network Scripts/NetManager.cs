@@ -15,11 +15,11 @@ public class NetManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI NomeJogador;
     public TextMeshProUGUI buttontext;
 
-
     void Start()
     {
 
     }
+
     #region Conexao Rede
     public void ButtonConnect()
     {
@@ -37,7 +37,6 @@ public class NetManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("Lobby");
         //SceneManager.LoadScene("MainScreen");
     }
-
 
     public override void OnDisconnected(DisconnectCause cause)
     {

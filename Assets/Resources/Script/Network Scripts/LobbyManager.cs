@@ -11,7 +11,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public TMP_InputField roomInputField;
     public GameObject lobbyPanel;
     public GameObject roomPanel;
-    public GameObject selectPanel;
     public TextMeshProUGUI roomName;
 
     public RoomItem roomItemPrefab;
@@ -31,7 +30,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         lobbyPanel.SetActive(true);
         roomPanel.SetActive(false);
-        selectPanel.SetActive(false);
     }
 
     private void Start()
@@ -44,7 +42,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (roomInputField.text.Length >= 1)
         {
             PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 4, BroadcastPropsChangeToAll = true });
-
         }
     }
 
@@ -55,16 +52,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomName.text = "Room Name: " + PhotonNetwork.CurrentRoom.Name;
         UpdatePlayerList();
     }
-
+    
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         if(Time.time >= nextupdatetime)
         {
             UpdateRoomList(roomList);
             nextupdatetime = Time.time + timeBetweenUpdates;
+            Debug.Log("A");
         }
     }
-
 
     public void UpdateRoomList(List<RoomInfo> list)
     {
@@ -102,13 +99,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    /*
-    public void OnClickLeftLobby()
-    {
-        PhotonNetwork.LoadLevel("MainScreen");
-    }
-
-    */
     public override void OnLeftRoom()
     {
         lobbyPanel.SetActive(true);

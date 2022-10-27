@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_RagdollEffect : MonoBehaviour
+public class RagdollEffect : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip audioClipGetHit, audioClipGetHitHonk;
@@ -11,7 +11,7 @@ public class Player_RagdollEffect : MonoBehaviour
 
     public void RagDollOn()
     {
-        ragDollEffect = true;
+        IsRagDoll = true;
     }
 
     public IEnumerator RagDollOff()
@@ -19,7 +19,7 @@ public class Player_RagdollEffect : MonoBehaviour
         yield return new WaitForSeconds(5f);
         audioSource.PlayOneShot(audioClipGetHitHonk, 1);
         this.transform.rotation = new Quaternion(0, 0, 0, 0);
-        ragDollEffect = false;
+        IsRagDoll = false;
         isChangingRagDoll = false;
     }
 
@@ -27,7 +27,7 @@ public class Player_RagdollEffect : MonoBehaviour
     
     private void OnCollisionStay(Collision colisao)
     {
-        if (colisao.gameObject.CompareTag("Ground") && ragDollEffect && !isChangingRagDoll)
+        if (colisao.gameObject.CompareTag("Ground") && IsRagDoll && !isChangingRagDoll)
         {
             isChangingRagDoll = true;
             StartCoroutine(RagDollOff());
