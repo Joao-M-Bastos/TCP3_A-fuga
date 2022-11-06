@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -42,9 +43,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (roomInputField.text.Length >= 1)
         {
             PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 2 });
-
         }
     }
+
+    
 
     public override void OnJoinedRoom()
     {
@@ -63,6 +65,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("Seu erro foi: " + returnCode + message);
+        SceneManager.LoadScene("Lobby");
+    }
+    public void onClickRandomRoom()
+    {
+        PhotonNetwork.JoinRandomOrCreateRoom();
+    }
 
     public void UpdateRoomList(List<RoomInfo> list)
     {
@@ -139,9 +150,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             playbutton.SetActive(false);
         }
     }
-
     public void OnClickPlayButton()
     {
         PhotonNetwork.LoadLevel("Game");
+    }
+
+    public override void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)
+    {
+        base.OnLobbyStatisticsUpdate(lobbyStatistics);
     }
 }
