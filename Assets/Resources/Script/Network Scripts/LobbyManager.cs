@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -39,11 +40,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void clickCreateRoom()
     {
-        if (roomInputField.text.Length > 1)
+        if (roomInputField.text.Length >= 1)
         {
-            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 4, BroadcastPropsChangeToAll = true });
+            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 2 });
         }
     }
+
+    
 
     public override void OnJoinedRoom()
     {
@@ -53,8 +56,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         UpdatePlayerList();
     }
 
-    /*
-    
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         if(Time.time >= nextupdatetime)
@@ -64,16 +65,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
-    */
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        base.OnRoomListUpdate(roomList);
-
-        if (Time.time >= nextupdatetime)
-        {
-            UpdateRoomList(roomList);
-            nextupdatetime = Time.time + timeBetweenUpdates;
-        }
+        Debug.Log("Seu erro foi: " + returnCode + message);
+        SceneManager.LoadScene("Lobby");
+    }
+    public void onClickRandomRoom()
+    {
+        PhotonNetwork.JoinRandomOrCreateRoom();
     }
 
     public void UpdateRoomList(List<RoomInfo> list)
@@ -138,19 +137,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PlayerItem newplayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newplayerItem.SetPlayerInfo(player.Value);
-
-            if (player.Value == PhotonNetwork.LocalPlayer)
-            {
-                newplayerItem.ApplyLocalChanges();
-            }
-            else Destroy(newplayerItem.gameObject);
-
             playerItemsList.Add(newplayerItem);
-        }
+        } 
     }
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 1)
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
             playbutton.SetActive(true);
         } else
@@ -158,9 +150,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             playbutton.SetActive(false);
         }
     }
-
     public void OnClickPlayButton()
     {
-        PhotonNetwork.LoadLevel("TestMap1");
+        PhotonNetwork.LoadLevel("Game");
+    }
+
+    public override void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)
+    {
+        base.OnLobbyStatisticsUpdate(lobbyStatistics);
     }
 }
