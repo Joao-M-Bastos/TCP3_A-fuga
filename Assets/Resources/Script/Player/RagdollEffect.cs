@@ -7,30 +7,46 @@ public class RagdollEffect : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip audioClipGetHit, audioClipGetHitHonk;
 
-    private bool ragDollEffect, isChangingRagDoll;
+    private bool ragDollEffect, isChangingRagDoll, touchingGround;
+
+    private float ragdollCount;
 
     public void RagDollOn()
     {
         IsRagDoll = true;
+        ragdollCount = 3;
     }
 
-    public IEnumerator RagDollOff()
+    private void Update()
     {
-        yield return new WaitForSeconds(5f);
-        audioSource.PlayOneShot(audioClipGetHitHonk, 1);
-        this.transform.rotation = new Quaternion(0, 0, 0, 0);
-        IsRagDoll = false;
-        isChangingRagDoll = false;
+        if (IsRagDoll && touchingGround)
+        {
+            if(ragdollCount < 0)
+            {
+                audioSource.PlayOneShot(audioClipGetHitHonk, 1);
+                this.transform.rotation = new Quaternion(0, 0, 0, 0);
+                IsRagDoll = false;
+                isChangingRagDoll = false;
+            }
+            ragdollCount -= Time.deltaTime;
+        }
     }
 
     //-------------------------------------- TESTS ----------------------------------
     
     private void OnCollisionStay(Collision colisao)
     {
-        if (colisao.gameObject.CompareTag("Ground") && IsRagDoll && !isChangingRagDoll)
+        if (colisao.gameObject.CompareTag("Ground"))
         {
-            isChangingRagDoll = true;
-            StartCoroutine(RagDollOff());
+            touchingGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision colisao)
+    {
+        if (colisao.gameObject.CompareTag("Ground"))
+        {
+            touchingGround = false;
         }
     }
 

@@ -37,8 +37,6 @@ public class Player_Move : MonoBehaviour
 
     private PhotonView playerView;
 
-    private Player_Push playerPush = new Player_Push();
-
     private void Awake()
     {
         onGoundInstance = GetComponentInChildren<OnGround>();
@@ -55,6 +53,8 @@ public class Player_Move : MonoBehaviour
             DestoyExtra();
         else
             StartValues();
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void DestoyExtra()
@@ -82,22 +82,19 @@ public class Player_Move : MonoBehaviour
         {
             UpdateValues();
 
-            playerPush.PushOponent(this.transform, Mathf.Abs(this.playerRB.velocity.x) + Mathf.Abs(this.playerRB.velocity.z));
-
             if (!playerRedDoll.IsRagDoll)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                     Jump(JumpType());
 
-                if (Input.GetKeyDown(KeyCode.LeftShift) && dashCoolDown > 0 && !isWingsOpen)
+                if (Input.GetKeyDown(KeyCode.LeftShift) && dashCoolDown < 0 && !isWingsOpen)
                 {
-                    playerPush.PlayerDash(this.playerRB);
-                    dashCoolDown = 0;
+                    this.PlayerDash();
+                    dashCoolDown = 1.5f;
                 }
                 else
-                    dashCoolDown += Time.deltaTime;
+                    dashCoolDown -= Time.deltaTime;
             }
-
             DoRagdollEffect();
 
         }
@@ -244,6 +241,11 @@ public class Player_Move : MonoBehaviour
             stepSoundDelay = 16; 
         }
 
+    }
+
+    public void PlayerDash()
+    {
+        playerRB.AddForce(playerRB.transform.forward * 400);
     }
 
     //--------------------------------TESTS----------------------------------

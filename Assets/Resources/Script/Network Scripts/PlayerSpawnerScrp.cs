@@ -13,7 +13,11 @@ public class PlayerSpawnerScrp : MonoBehaviour
     {
         int random = Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[random];
-        GameObject playerToSpawn = preFabs[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
-        PhotonNetwork.Instantiate(playerToSpawn.name, spawnPoint.position, Quaternion.identity);
+        try
+        {
+            GameObject playerToSpawn = preFabs[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
+            PhotonNetwork.Instantiate(playerToSpawn.name, spawnPoint.position, Quaternion.identity);
+        }
+        catch { }
     }
 }

@@ -39,7 +39,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void clickCreateRoom()
     {
-        if (roomInputField.text.Length >= 1)
+        if (roomInputField.text.Length > 1)
         {
             PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 4, BroadcastPropsChangeToAll = true });
         }
@@ -52,6 +52,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomName.text = "Room Name: " + PhotonNetwork.CurrentRoom.Name;
         UpdatePlayerList();
     }
+
+    /*
     
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -59,7 +61,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             UpdateRoomList(roomList);
             nextupdatetime = Time.time + timeBetweenUpdates;
-            Debug.Log("A");
+        }
+    }
+
+    */
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        base.OnRoomListUpdate(roomList);
+
+        if (Time.time >= nextupdatetime)
+        {
+            UpdateRoomList(roomList);
+            nextupdatetime = Time.time + timeBetweenUpdates;
         }
     }
 
@@ -130,7 +143,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             {
                 newplayerItem.ApplyLocalChanges();
             }
-            //else Destroy(newplayerItem.gameObject);
+            else Destroy(newplayerItem.gameObject);
 
             playerItemsList.Add(newplayerItem);
         }

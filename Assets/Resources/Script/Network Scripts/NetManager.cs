@@ -23,7 +23,7 @@ public class NetManager : MonoBehaviourPunCallbacks
     #region Conexao Rede
     public void ButtonConnect()
     {
-        if (NomeJogador.text.Length >= 1)
+        if (NomeJogador.text.Length > 1)
         {
             PhotonNetwork.NickName = NomeJogador.text;
             buttontext.text = "Connecting...";

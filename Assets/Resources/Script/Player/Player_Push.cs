@@ -3,37 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Push
+public class Player_Push : MonoBehaviour
 {
     private float pushForce = 25;
     private IPushed iPushed;
     private RagdollEffect ragdollEffect;
 
-    public void PushOponent(Transform playerTransform, float speed)
+    public Rigidbody rb;
+
+    private bool hasPlayerCollision;
+
+    public void Update()
     {
-        Vector3 rayPosition = new Vector3(playerTransform.position.x, playerTransform.position.y - 0.25f, playerTransform.position.z);
-
-        Debug.DrawRay(rayPosition, playerTransform.forward, Color.blue);
-
-        if (Physics.Raycast(rayPosition, playerTransform.forward, out RaycastHit hit, 0.5f))
+        if (hasPlayerCollision)
         {
             try
             {
-                iPushed = hit.collider.gameObject.GetComponent<IPushed>();
-                iPushed.ApplyForceIn(playerTransform.forward * pushForce);
-
-                if (speed > 6)
+                if (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z) > 7)
                 {
-                    ragdollEffect = hit.collider.gameObject.GetComponent<RagdollEffect>();
                     ragdollEffect.RagDollOn();
                 }
+
+                iPushed.ApplyForceIn(rb.transform.forward * pushForce);
             }
             catch {}
         }
     }
 
-    public void PlayerDash(Rigidbody rb)
+    private void OnTriggerEnter(Collider collision)
     {
-        rb.AddForce(rb.transform.forward * 300);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            hasPlayerCollision = true;
+
+            try
+            {
+                iPushed = collision.gameObject.GetComponent<IPushed>();
+
+                ragdollEffect = collision.gameObject.GetComponent<RagdollEffect>();
+            }
+            catch { }
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+            hasPlayerCollision = false;
     }
 }

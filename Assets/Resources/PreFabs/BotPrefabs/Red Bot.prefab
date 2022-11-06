@@ -471,7 +471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wingAnimator: {fileID: 1862644173241219874}
   frictionValue: 30
-  botBaseSpeed: 0.5
+  botBaseSpeed: 3
   stepSoundDelay: 5
   audioSource: {fileID: 7421047097679596891}
   maxDoubleJumpCount: 1
