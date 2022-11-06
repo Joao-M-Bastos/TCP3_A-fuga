@@ -42,7 +42,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (roomInputField.text.Length >= 1)
         {
-            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 2 });
+            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 6 });
         }
     }
 
@@ -60,6 +60,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if(Time.time >= nextupdatetime)
         {
+            Debug.Log("a");
             UpdateRoomList(roomList);
             nextupdatetime = Time.time + timeBetweenUpdates;
         }
@@ -142,7 +143,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 1)
         {
             playbutton.SetActive(true);
         } else
@@ -152,7 +153,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void OnClickPlayButton()
     {
-        PhotonNetwork.LoadLevel("Game");
+        PhotonNetwork.LoadLevel("TestMap1");
     }
 
     public override void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)

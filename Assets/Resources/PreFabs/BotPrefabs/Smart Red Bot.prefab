@@ -289,8 +289,8 @@ GameObject:
   - component: {fileID: 5302960545724731107}
   - component: {fileID: 4321159394570574533}
   - component: {fileID: 5184631410484938260}
-  - component: {fileID: 4084762960959208410}
   - component: {fileID: 8822025771492369444}
+  - component: {fileID: 992779169277833902}
   m_Layer: 0
   m_Name: Red Bot
   m_TagString: Player
@@ -366,6 +366,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5302960545724731107}
+  - {fileID: 992779169277833902}
   - {fileID: 5726929405336405280}
   sceneViewId: 0
   InstantiationId: 0
@@ -497,18 +498,6 @@ MonoBehaviour:
   audioSource: {fileID: 4321159394570574533}
   audioClipGetHit: {fileID: 8300000, guid: 11bf06335e84288449508fb103ecf24b, type: 3}
   audioClipGetHitHonk: {fileID: 8300000, guid: cced8fdc8644d964f872afa8c041a067, type: 3}
---- !u!114 &4084762960959208410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4959164226234779049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0400b766cfee98746b3a943098c6b878, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8822025771492369444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9431b94f658a96439899059d6a6872e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  botRB: {fileID: 0}
   wingAnimator: {fileID: 4959164226064362684}
   frictionValue: 40
   botBaseSpeed: 4
@@ -531,6 +521,22 @@ MonoBehaviour:
   botJumpForce: 5
   botPlaneValue: 1
   path_Handle: {fileID: 3407503054217357964}
+--- !u!114 &992779169277833902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4959164226234779049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &4959164226265716598
 GameObject:
   m_ObjectHideFlags: 0

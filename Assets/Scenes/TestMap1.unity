@@ -153,9 +153,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preFabs:
-  - {fileID: 1862644173125374519, guid: 4437967603b65524082e8fb6bcc44885, type: 3}
+  - {fileID: 1862644173125374519, guid: 0a3daef799f65b44b8739d55556cae26, type: 3}
   - {fileID: 1862644173125374519, guid: 0a3daef799f65b44b8739d55556cae26, type: 3}
   - {fileID: 1862644173125374519, guid: 0cc0ee5900f27944fb7b328de59ff075, type: 3}
+  botPreFabs:
+  - {fileID: 6704466314663442767, guid: 92eb560e38b349942b4d6cbcd4324578, type: 3}
   spawnPoints:
   - {fileID: 852546925}
   - {fileID: 813421501}

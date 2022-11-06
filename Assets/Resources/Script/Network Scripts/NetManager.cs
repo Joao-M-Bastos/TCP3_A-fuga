@@ -34,7 +34,7 @@ public class NetManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("LobbyMultiplayer");
         //SceneManager.LoadScene("MainScreen");
     }
 

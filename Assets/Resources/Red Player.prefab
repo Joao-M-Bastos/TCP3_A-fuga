@@ -527,8 +527,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862644172539078569}
-  m_LocalRotation: {x: -0.0005308214, y: 0.9993587, z: -0.031634096, w: -0.016769284}
-  m_LocalPosition: {x: 0.37550712, y: 0.48000002, z: -22.825626}
+  m_LocalRotation: {x: 0.031638555, y: 0.000000034530412, z: -0.0000000010930394,
+    w: 0.9994994}
+  m_LocalPosition: {x: 0, y: 2, z: -10}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1379,7 +1380,7 @@ GameObject:
   - component: {fileID: 7421047097679596891}
   - component: {fileID: 5265639400903634263}
   - component: {fileID: 3294873984319568401}
-  - component: {fileID: 8908792180360128421}
+  - component: {fileID: 4142191052543499052}
   m_Layer: 0
   m_Name: Red Player
   m_TagString: Player
@@ -1484,6 +1485,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1485319341704468861}
+  - {fileID: 4142191052543499052}
   - {fileID: 1328895475474666174}
   sceneViewId: 0
   InstantiationId: 0
@@ -1628,7 +1630,7 @@ MonoBehaviour:
   audioSource: {fileID: 7421047097679596891}
   audioClipGetHit: {fileID: 8300000, guid: 11bf06335e84288449508fb103ecf24b, type: 3}
   audioClipGetHitHonk: {fileID: 8300000, guid: cced8fdc8644d964f872afa8c041a067, type: 3}
---- !u!114 &8908792180360128421
+--- !u!114 &4142191052543499052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1637,9 +1639,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1862644173125374519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0400b766cfee98746b3a943098c6b878, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1862644173238694951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2043,7 +2049,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986821237748498066}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.15
   m_Height: 0.64
@@ -2061,6 +2067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09b3bbe56195104b946cf19739106c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisRagdollEffect: {fileID: 3294873984319568401}
   rb: {fileID: 1862644173125374513}
 --- !u!1 &3191316822976641221
 GameObject:

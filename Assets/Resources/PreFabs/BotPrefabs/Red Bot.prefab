@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 7421047097679596891}
   - component: {fileID: 7598049500323640158}
   - component: {fileID: 1943459761052963210}
-  - component: {fileID: 7324245878342888516}
+  - component: {fileID: 8770718137498448723}
   m_Layer: 0
   m_Name: Red Bot
   m_TagString: Player
@@ -493,7 +493,7 @@ MonoBehaviour:
   audioSource: {fileID: 7421047097679596891}
   audioClipGetHit: {fileID: 8300000, guid: 11bf06335e84288449508fb103ecf24b, type: 3}
   audioClipGetHitHonk: {fileID: 8300000, guid: cced8fdc8644d964f872afa8c041a067, type: 3}
---- !u!114 &7324245878342888516
+--- !u!114 &8770718137498448723
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -502,9 +502,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1862644173125374519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0400b766cfee98746b3a943098c6b878, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1862644173238694951
 GameObject:
   m_ObjectHideFlags: 0
