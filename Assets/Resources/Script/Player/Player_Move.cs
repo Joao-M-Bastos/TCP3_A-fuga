@@ -55,6 +55,8 @@ public class Player_Move : MonoBehaviour
             StartValues();
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        if (Modifiers.modifier == 1) ChangeDoubleJump(2f);
     }
 
     public void DestoyExtra()
@@ -98,6 +100,9 @@ public class Player_Move : MonoBehaviour
             DoRagdollEffect();
 
         }
+
+        //DEBUG
+        //if (Input.GetKeyDown("x")) Debug.Log(maxDoubleJumpCount);
     }
 
     private void FixedUpdate()
@@ -271,6 +276,11 @@ public class Player_Move : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && !onGoundInstance.isOnGround && this.playerRB.velocity.y < -playerPlaneValue + 0.01f) return true;
         return false;
+    }
+
+    public void ChangeDoubleJump(float count)
+    {
+        maxDoubleJumpCount = count;
     }
 }
 
