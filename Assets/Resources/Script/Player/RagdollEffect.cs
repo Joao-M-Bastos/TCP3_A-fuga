@@ -11,10 +11,29 @@ public class RagdollEffect : MonoBehaviour
 
     private float ragdollCount;
 
+    public Rigidbody thisRB;
+
+    private void Awake()
+    {
+        thisRB = this.gameObject.GetComponent<Rigidbody>();
+    }
+
     public void RagDollOn()
     {
         IsRagDoll = true;
+        this.gameObject.GetComponent<Collider>().material.dynamicFriction = 1;
+        thisRB.freezeRotation = !IsRagDoll;
         ragdollCount = 3;
+    }
+
+    public void RagDollOff()
+    {
+        audioSource.PlayOneShot(audioClipGetHitHonk, 1);
+        this.transform.rotation = new Quaternion(0, 0, 0, 0);
+        IsRagDoll = false;
+        thisRB.freezeRotation = !IsRagDoll;
+        isChangingRagDoll = IsRagDoll;
+        this.gameObject.GetComponent<Collider>().material.dynamicFriction = 0;
     }
 
     private void Update()
@@ -23,17 +42,14 @@ public class RagdollEffect : MonoBehaviour
         {
             if(ragdollCount < 0)
             {
-                audioSource.PlayOneShot(audioClipGetHitHonk, 1);
-                this.transform.rotation = new Quaternion(0, 0, 0, 0);
-                IsRagDoll = false;
-                isChangingRagDoll = false;
+                RagDollOff();
             }
             ragdollCount -= Time.deltaTime;
         }
     }
 
     //-------------------------------------- TESTS ----------------------------------
-    
+
     private void OnCollisionStay(Collision colisao)
     {
         if (colisao.gameObject.CompareTag("Ground"))

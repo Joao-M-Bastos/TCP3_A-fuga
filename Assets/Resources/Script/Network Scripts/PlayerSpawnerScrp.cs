@@ -9,7 +9,6 @@ public class PlayerSpawnerScrp : MonoBehaviour
     public GameObject[] botPreFabs;
     public Transform[] spawnPoints;
 
-    // Start is called before the first frame update
     void Start()
     {
         int random = Random.Range(0, spawnPoints.Length);
@@ -22,7 +21,7 @@ public class PlayerSpawnerScrp : MonoBehaviour
         {
             int botRandom = Random.Range(0, spawnPoints.Length);
             Transform botSpawnPoint = spawnPoints[botRandom];
-            GameObject botToSpawn = botPreFabs[0];//(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
+            GameObject botToSpawn = botPreFabs[(int)Mathf.Floor(Random.Range(0, 3))];
             Instantiate(botToSpawn, botSpawnPoint.position, Quaternion.identity);
             playersNumber = playersNumber + Random.Range(1, 1);
         }

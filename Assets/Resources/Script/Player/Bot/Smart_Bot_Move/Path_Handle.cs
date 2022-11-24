@@ -21,7 +21,7 @@ public class Path_Handle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void AdvancedMove()

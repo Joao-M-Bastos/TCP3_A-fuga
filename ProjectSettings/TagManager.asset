@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DoRagdoll
   - Ground
+  - Kill
   layers:
   - Default
   - TransparentFX

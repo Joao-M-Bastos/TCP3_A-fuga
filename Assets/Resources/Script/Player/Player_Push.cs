@@ -14,7 +14,7 @@ public class Player_Push : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 RagdollEffect playerRagdoll = collision.gameObject.GetComponent<RagdollEffect>();
-                if (!playerRagdoll.IsRagDoll && !thisRagdollEffect.IsRagDoll && Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z) > 7)
+                if (!playerRagdoll.IsRagDoll && !thisRagdollEffect.IsRagDoll && Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z) > 7.5f)
                     playerRagdoll.RagDollOn();
             }
     }

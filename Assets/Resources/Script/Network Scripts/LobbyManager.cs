@@ -46,7 +46,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
-    
+
 
     public override void OnJoinedRoom()
     {
@@ -138,8 +138,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PlayerItem newplayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newplayerItem.SetPlayerInfo(player.Value);
+
+            if (player.Value == PhotonNetwork.LocalPlayer)
+            {
+                newplayerItem.ApplyLocalChanges();
+            }
+
             playerItemsList.Add(newplayerItem);
-        } 
+        }
     }
     void Update()
     {
@@ -153,7 +159,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void OnClickPlayButton()
     {
-        PhotonNetwork.LoadLevel("TestMap1");
+        PhotonNetwork.LoadLevel("TestMap1 1");
     }
 
     public override void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)

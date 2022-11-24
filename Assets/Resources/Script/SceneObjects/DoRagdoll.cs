@@ -14,7 +14,7 @@ public class DoRagdoll : MonoBehaviour
             playerRagdoll.BonkSFX(hasBonkSFX);
         }
         catch { }
-        
+
     }
 
     private void OnCollisionStay(Collision colisao)
@@ -23,7 +23,7 @@ public class DoRagdoll : MonoBehaviour
         {
             RagdollEffect playerRagdoll = colisao.gameObject.GetComponent<RagdollEffect>();
             if (!playerRagdoll.IsRagDoll)
-                playerRagdoll.RagDollOn();            
+                playerRagdoll.RagDollOn();
         }
         catch { }
     }

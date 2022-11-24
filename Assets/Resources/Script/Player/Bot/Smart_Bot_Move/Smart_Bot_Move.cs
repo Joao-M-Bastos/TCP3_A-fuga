@@ -17,7 +17,7 @@ public class Smart_Bot_Move : MonoBehaviour
 
     private HasWallOnFront hasWall;
 
-    [SerializeField] private Animator wingAnimator;
+    [SerializeField] private Animator gooseAnimator;
     [SerializeField] private float frictionValue, botBaseSpeed, stepSoundDelay;
 
     [SerializeField] private AudioSource audioSource;
@@ -53,7 +53,6 @@ public class Smart_Bot_Move : MonoBehaviour
         playerView = GetComponent<PhotonView>();
         this.botRB = this.GetComponent<Rigidbody>();
         botRedDoll = this.GetComponent<RagdollEffect>();
-        
     }
 
     private void Start()
@@ -88,8 +87,6 @@ public class Smart_Bot_Move : MonoBehaviour
             UpdateValues();
 
             BotJump();
-
-            
         //}
     }
 
@@ -150,15 +147,12 @@ public class Smart_Bot_Move : MonoBehaviour
                 break;
             case -1:
                 path_Handle.AdvancedMove();
+                this.gooseAnimator.SetBool("Runnig", true);
                 break;
         }
 
-        
-
         Fly();
     }
-
-    
 
     private void BasicMove()
     {
@@ -168,20 +162,13 @@ public class Smart_Bot_Move : MonoBehaviour
 
         if (changeDirectionDelay > 60)
         {
-            this.randx = Mathf.Floor(UnityEngine.Random.Range(-1, 2));
-            this.randy = Mathf.Floor(UnityEngine.Random.Range(-1, 2));
+            this.randx = Mathf.Floor(Random.Range(-1, 2));
+            this.randy = Mathf.Floor(Random.Range(-1, 2));
             changeDirectionDelay = 0;
         }
         else
         {
             changeDirectionDelay++;
-            //changeDirectionDelay += Time.deltaTime * Random.Range(0, 5);
-        }
-
-        if (hasWall.HasWall(this.transform))
-        {
-            //randx *= -1;
-            //randy *= -1;
         }
 
         direction = new Vector3(randx, 0, randy).normalized;
@@ -209,6 +196,8 @@ public class Smart_Bot_Move : MonoBehaviour
                 moveDir.y = this.botRB.velocity.y;
 
                 this.botRB.velocity = moveDir;
+
+                this.gooseAnimator.SetBool("Runnig", true);
             }
             else if (isWingsOpen)
             {
@@ -216,7 +205,6 @@ public class Smart_Bot_Move : MonoBehaviour
 
                 if (!hasWall.HasWall(this.transform))
                     moveDir = this.transform.forward;
-                
 
                 moveDir *= botSpeed;
 
@@ -230,6 +218,7 @@ public class Smart_Bot_Move : MonoBehaviour
         else
         {
             Friction();
+            this.gooseAnimator.SetBool("Runnig", true);
         }
     }
 
@@ -247,7 +236,7 @@ public class Smart_Bot_Move : MonoBehaviour
         }
         else
         {
-            if (UnityEngine.Random.Range(0, 100) > 99)
+            if (Random.Range(0, 100) > 99)
                 spaceIsPressed = false;
         }
     }
@@ -258,6 +247,8 @@ public class Smart_Bot_Move : MonoBehaviour
         {
             path_Handle.TurnAgentOff();
 
+            this.gooseAnimator.SetBool("Runnig", false);
+
             this.botRB.freezeRotation = false;
         }
         else this.botRB.freezeRotation = true;
@@ -266,7 +257,7 @@ public class Smart_Bot_Move : MonoBehaviour
     public void Fly()
     {
         isWingsOpen = CanOpenWings();
-        this.wingAnimator.SetBool("OpenWings", isWingsOpen);
+        this.gooseAnimator.SetBool("WingsOpen", isWingsOpen);
 
         if (isWingsOpen)
         {
@@ -301,7 +292,7 @@ public class Smart_Bot_Move : MonoBehaviour
     {
         if (!botRedDoll.IsRagDoll) //&& !playerMenu.IsMenuOn)
         {
-            
+
             return true;
         }
         return false;

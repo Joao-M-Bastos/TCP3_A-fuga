@@ -27,17 +27,11 @@ public class PlayerItem : MonoBehaviourPunCallbacks
         player = _player;
         UpdatePlayerItem(player);
     }
-    
+
     public void ApplyLocalChanges()
     {
         leftArrow.SetActive(true);
         rightArrow.SetActive(true);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OnLeftButtonClick()

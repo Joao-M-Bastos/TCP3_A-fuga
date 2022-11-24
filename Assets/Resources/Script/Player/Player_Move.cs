@@ -9,7 +9,7 @@ public class Player_Move : MonoBehaviour
     //---------------------------------- VARIAVEIS -----------------------------------------
     private OnGround onGoundInstance;
     private RagdollEffect playerRedDoll;
-    private PlayerMEnu playerMenu;
+    private PlayerRespawnScrp playerRespawnScrp;
 
     private HasWallOnFront hasWall;
 
@@ -17,7 +17,7 @@ public class Player_Move : MonoBehaviour
 
     private Rigidbody playerRB;
 
-    [SerializeField] private Animator wingAnimator;
+    [SerializeField] private Animator gooseAnimator;
     [SerializeField] private Transform cam;
     [SerializeField] private float frictionValue, playerBaseSpeed, stepSoundDelay;
 
@@ -33,19 +33,19 @@ public class Player_Move : MonoBehaviour
 
     private float turnSmoothTime, turnSmoothVelocity, doubleJumpCount, dashCoolDown;
 
-    private Vector3 playerActualSpeed;
-
     private PhotonView playerView;
+
+    Vector3 moveDirection;
 
     private void Awake()
     {
         onGoundInstance = GetComponentInChildren<OnGround>();
         hasWall = new HasWallOnFront();
         playerView = GetComponent<PhotonView>();
-        playerMenu = GetComponent<PlayerMEnu>();
+        playerRespawnScrp = GetComponent<PlayerRespawnScrp>();
         this.playerRB = this.GetComponent<Rigidbody>();
         playerRedDoll = this.GetComponent<RagdollEffect>();
-    } 
+    }
 
     private void Start()
     {
@@ -64,15 +64,15 @@ public class Player_Move : MonoBehaviour
         Destroy(playerRB);
         Destroy(onGoundInstance);
         Destroy(playerRedDoll);
-        Destroy(playerMenu);
+        Destroy(playerRespawnScrp);
     }
 
     public void StartValues()
     {
+        UpdateSpeed();
         this.turnSmoothTime = 0.05f;
         this.stepSoundDelay = 5f;
         this.isWingsOpen = false;
-        UpdateSpeed();
     }
 
     // Update is called once per frame
@@ -87,7 +87,7 @@ public class Player_Move : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                     Jump(JumpType());
 
-                if (Input.GetKeyDown(KeyCode.LeftShift) && dashCoolDown < 0 && !isWingsOpen)
+                if (Input.GetKeyDown(KeyCode.LeftShift) && dashCoolDown < 0 && onGoundInstance.isOnGround)
                 {
                     this.PlayerDash();
                     dashCoolDown = 1.5f;
@@ -96,7 +96,6 @@ public class Player_Move : MonoBehaviour
                     dashCoolDown -= Time.deltaTime;
             }
             DoRagdollEffect();
-
         }
     }
 
@@ -112,7 +111,6 @@ public class Player_Move : MonoBehaviour
 
     public void UpdateValues()
     {
-        playerActualSpeed = playerRB.velocity;
         if (onGoundInstance.isOnGround && doubleJumpCount != maxDoubleJumpCount) doubleJumpCount = maxDoubleJumpCount;
     }
 
@@ -123,17 +121,19 @@ public class Player_Move : MonoBehaviour
 
     public void Friction()
     {
-        if (Mathf.Abs(playerActualSpeed.x) > 1 && Mathf.Abs(playerActualSpeed.x) < 5)
+        Vector3 playerActualSpeed = playerRB.velocity;
+
+        if (Mathf.Abs(playerActualSpeed.x) > 5)
             playerActualSpeed.x -= Mathf.Sign(playerActualSpeed.x) * frictionValue * Time.deltaTime;
         else
             playerActualSpeed.x = 0;
 
-        if (Mathf.Abs(playerActualSpeed.z) > 1 && Mathf.Abs(playerActualSpeed.z) < 5)
+        if (Mathf.Abs(playerActualSpeed.z) > 5)
             playerActualSpeed.z -= Mathf.Sign(playerActualSpeed.z) * frictionValue * Time.deltaTime;
         else
             playerActualSpeed.z = 0;
 
-        //this.playerRB.velocity = playerActualSpeed;
+        this.playerRB.velocity = playerActualSpeed;
     }
 
     //----------------------------------------- ACTIONS -----------------------------------
@@ -141,14 +141,12 @@ public class Player_Move : MonoBehaviour
     public void Move()
     {
 
-        Vector3 direction;
-
         AxisX = Input.GetAxis("Horizontal");
         AxisY = Input.GetAxis("Vertical");
 
-        direction = new Vector3(AxisX, 0, AxisY).normalized;
+        moveDirection = new Vector3(AxisX, 0, AxisY).normalized;
 
-        Walk(direction);
+        Walk(moveDirection);
 
         Fly();
     }
@@ -168,18 +166,24 @@ public class Player_Move : MonoBehaviour
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward * playerSpeed;
 
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
                 moveDir.y = this.playerRB.velocity.y;
 
-                if (Mathf.Abs(playerActualSpeed.x) + Mathf.Abs(playerActualSpeed.z) <= 5)
+                this.gooseAnimator.SetBool("Runnig", true);
+
+                if (Mathf.Abs(playerRB.velocity.x) + Mathf.Abs(playerRB.velocity.z) <= 7.5f)
+                {
                     this.playerRB.velocity = moveDir;
+                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                }
+                else
+                    Friction();
+
             }
             else if (isWingsOpen)
             {
                 Vector3 moveDir = Vector3.zero;
-                
-                if (!hasWall.HasWall(this.transform))                    
+
+                if (!hasWall.HasWall(this.transform))
                     moveDir = this.transform.forward;
 
                 moveDir *= playerSpeed;
@@ -187,11 +191,16 @@ public class Player_Move : MonoBehaviour
                 moveDir.y = playerRB.velocity.y;
 
                 this.transform.Rotate(new Vector3(0, AxisX * 40, 0) * Time.deltaTime);
-                
+
                 this.playerRB.velocity = moveDir;
             }
         }
-   }
+        else
+        {
+            Friction();
+            this.gooseAnimator.SetBool("Runnig", false);
+        }
+    }
 
     public void Jump(float jumpType)
     {
@@ -217,6 +226,7 @@ public class Player_Move : MonoBehaviour
     {
         if (playerRedDoll.IsRagDoll)
         {
+            this.gooseAnimator.SetBool("Runnig", false);
             this.playerRB.freezeRotation = false;
         }
         else this.playerRB.freezeRotation = true;
@@ -225,7 +235,7 @@ public class Player_Move : MonoBehaviour
     public void Fly()
     {
         isWingsOpen = CanOpenWings();
-        this.wingAnimator.SetBool("OpenWings", isWingsOpen);
+        this.gooseAnimator.SetBool("WingsOpen", isWingsOpen);
 
         if (isWingsOpen)
         {
@@ -235,12 +245,11 @@ public class Player_Move : MonoBehaviour
 
     public void PlayStepFX()
     {
-        if ((playerActualSpeed.x * playerActualSpeed.z) != 0) {
+        if ((playerRB.velocity.x * playerRB.velocity.z) != 0) {
             int randomNum = Random.Range(0, audioClipSteps.Length - 1);
             audioSource.PlayOneShot(audioClipSteps[randomNum], 0.4f - (0.3f * randomNum));
-            stepSoundDelay = 16; 
+            stepSoundDelay = 16;
         }
-
     }
 
     public void PlayerDash()
