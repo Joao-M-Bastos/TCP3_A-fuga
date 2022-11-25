@@ -7,17 +7,17 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Login.unity
-    guid: baa493a1afea9d9429b0c6a5867d3295
+    guid: 8ddaf8205426c314aa7e213d38730cc6
   - enabled: 1
     path: Assets/Scenes/LobbyMultiplayer.unity
-    guid: 9202768d87c51984ca4997ee07f5fa9a
-  - enabled: 1
-    path: Assets/Scenes/TestMap2.unity
-    guid: c0b84819390c6a340b2de2f1ec8b7e18
+    guid: 96c61aaa4bdaab044bf067aaf04fda29
   - enabled: 1
     path: Assets/Scenes/Map1.unity
     guid: 54560bc124e4ddb4bb8dc30de07089d8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestMap1 1.unity
     guid: 95ee7da9b58145e49a7f51b7bfd3a6d6
+  - enabled: 0
+    path: Assets/Scenes/TestMap2.unity
+    guid: c0b84819390c6a340b2de2f1ec8b7e18
   m_configObjects: {}

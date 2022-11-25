@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class LobbyManager : MonoBehaviourPunCallbacks
+public class LobbyManagertester : MonoBehaviourPunCallbacks
 {
     public TMP_InputField roomInputField;
     public GameObject lobbyPanel;
@@ -16,7 +16,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject lobbySelection;
     public GameObject gameSelection;
     public GameObject listRoomScreen;
-    public GameObject room;
+    public GameObject room; 
     public TextMeshProUGUI roomName;
 
     public RoomItem roomItemPrefab;
@@ -36,13 +36,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         menuPrincipal.SetActive(true);
     }
-
-    public void testeroom()
-    {
-        gameSelection.SetActive(false);
-        lobbyPanel.SetActive(true);
-    }
-
+    
     public void playButton()
     {
         menuPrincipal.SetActive(false);
@@ -77,7 +71,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         gameSelection.SetActive(false);
         listRoomScreen.SetActive(true);
     }
-
+    
     public void voltarListRoom()
     {
         listRoomScreen.SetActive(false);
@@ -97,7 +91,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
-
+    
 
     public override void OnJoinedRoom()
     {
@@ -119,7 +113,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("Seu erro foi: " + returnCode + message);
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("LobbyMultiplayer");
     }
     public void onClickRandomRoom()
     {
@@ -189,11 +183,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PlayerItem newplayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newplayerItem.SetPlayerInfo(player.Value);
             playerItemsList.Add(newplayerItem);
-        }
+        } 
     }
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 1)
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
             playbutton.SetActive(true);
         } else
@@ -203,7 +197,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void OnClickPlayButton()
     {
-        PhotonNetwork.LoadLevel("Map1");
+        PhotonNetwork.LoadLevel("Game");
     }
 
     public override void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)

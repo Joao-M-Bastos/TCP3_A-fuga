@@ -1,17 +1,8 @@
 fileFormatVersion: 2
-guid: 50645882b30776541bfb4c0239385d12
+guid: 5095565c6c267dc48afada0708382679
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable:
-  - first:
-      74: -5380582658037742196
-    second: GANSO.BRABO|CORRIDA
-  - first:
-      74: 5822659831271927535
-    second: GANSO.BRABO|IDLE.ESSEAQUI
-  - first:
-      74: 5095185435180890130
-    second: GANSO.BRABO|PoseLib
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2

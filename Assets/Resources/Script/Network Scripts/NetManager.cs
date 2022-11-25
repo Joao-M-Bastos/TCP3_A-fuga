@@ -15,19 +15,20 @@ public class NetManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI NomeJogador;
     public TextMeshProUGUI buttontext;
 
+
     void Start()
     {
 
     }
-
     #region Conexao Rede
     public void ButtonConnect()
     {
-        if (NomeJogador.text.Length > 1)
+        if (NomeJogador.text.Length >= 1)
         {
             PhotonNetwork.NickName = NomeJogador.text;
-            buttontext.text = "Connecting...";
+            buttontext.text = "Conectando...";
             PhotonNetwork.AutomaticallySyncScene = true;
+            Debug.Log(PhotonNetwork.NickName);
             PhotonNetwork.ConnectUsingSettings();
         }
     }
@@ -35,7 +36,6 @@ public class NetManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         SceneManager.LoadScene("LobbyMultiplayer");
-        //SceneManager.LoadScene("MainScreen");
     }
 
     public override void OnDisconnected(DisconnectCause cause)

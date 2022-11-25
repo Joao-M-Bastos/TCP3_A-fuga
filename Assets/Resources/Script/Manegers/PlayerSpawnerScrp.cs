@@ -9,7 +9,7 @@ public class PlayerSpawnerScrp : MonoBehaviour
     public GameObject[] botPreFabs;
     public Transform[] spawnPoints;
 
-    void Start()
+    public void SpawnPlayer()
     {
         int random = Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[random];
