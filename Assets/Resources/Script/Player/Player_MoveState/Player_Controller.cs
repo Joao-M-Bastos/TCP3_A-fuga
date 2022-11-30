@@ -114,17 +114,11 @@ public class Player_Controller : MonoBehaviour
         this.playerSpeed = this.playerBaseSpeed;
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        if (playerView.IsMine)
-        {
-            {
                 Debug.Log(currentMachine);
                 currentMachine.UpdateState(this);
-            }
-        }
     }
 
     //----------------------------------------- ACTIONS -----------------------------------

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class FaseManager : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        playerSpawnerScrp = GameObject.FindGameObjectWithTag("RespawnManegar").GetComponent<PlayerSpawnerScrp>();
+        playerSpawnerScrp = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<PlayerSpawnerScrp>();
         playerSpawnerScrp.SpawnPlayer();
     }
 
@@ -16,5 +17,12 @@ public class FaseManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void QuitPlayer(GameObject playerPreFab)
+    {
+        Destroy(playerPreFab);
+        Cursor.lockState = CursorLockMode.None;
+        PhotonNetwork.LoadLevel("LobbyMultiplayer");
     }
 }
