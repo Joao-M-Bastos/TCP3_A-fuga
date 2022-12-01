@@ -1,8 +1,35 @@
 fileFormatVersion: 2
-guid: f90e6bbe71fda5447860bb046988084d
+guid: 4f1c5cab530a77a4e9f36f0a82460148
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -6907998223132548779
+    second: esqueleto do ganso|corrida
+  - first:
+      74: -2102461063173442038
+    second: esqueleto do ganso|corrida.001
+  - first:
+      74: 723119002740591234
+    second: esqueleto do ganso|dash
+  - first:
+      74: 1017096865946841206
+    second: esqueleto do ganso|EmptyAction
+  - first:
+      74: 6488216164912294353
+    second: esqueleto do ganso|idle
+  - first:
+      74: 4522535269096431888
+    second: esqueleto do ganso|levantar
+  - first:
+      74: -1461412781567749170
+    second: esqueleto do ganso|planagem
+  - first:
+      74: 6985552834195649041
+    second: esqueleto do ganso|PoseLib
+  - first:
+      74: -639472128947073279
+    second: esqueleto do ganso|pulo
   externalObjects: {}
   materials:
     materialImportMode: 2

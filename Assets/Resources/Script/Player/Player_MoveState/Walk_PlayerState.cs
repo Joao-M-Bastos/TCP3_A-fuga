@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Walk_PlayerState : Player_StateMachine
 {
+    private float dashCoolDown;
     public override void EnterState(Player_Controller player)
     {
 
@@ -16,10 +17,10 @@ public class Walk_PlayerState : Player_StateMachine
         if (Input.GetKeyDown(KeyCode.Space))
             Jump(player);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && player.dashCoolDown < 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && this.dashCoolDown < 0)
             PlayerDash(player);
         else
-            player.dashCoolDown -= Time.deltaTime;
+            this.dashCoolDown -= Time.deltaTime;
 
         Move(player);
 
@@ -69,7 +70,7 @@ public class Walk_PlayerState : Player_StateMachine
     {
         player.gooseAnimator.SetTrigger("Dash");
         player.playerRB.AddForce(player.playerRB.transform.forward * 400);
-        player.dashCoolDown = 1.5f;
+        this.dashCoolDown = player.baseDashCoolDown;
     }
 
     public void ChangeState(Player_Controller player)

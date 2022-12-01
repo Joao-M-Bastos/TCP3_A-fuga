@@ -86,6 +86,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        if (PhotonNetwork.InRoom)
+            PhotonNetwork.LeaveRoom();
+
         PhotonNetwork.JoinLobby();
     }
 
