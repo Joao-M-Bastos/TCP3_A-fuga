@@ -49,6 +49,8 @@ public class Air_PlayerState : Player_StateMachine
         player.isWingsOpen = this.CanOpenWings(player);
         player.gooseAnimator.SetBool("WingsOpen", player.isWingsOpen);
 
+        player.playerRB.AddForce(0, 1.5f * player.gravityValue, 0);
+
         if (player.isWingsOpen)
         {
             player.playerRB.velocity = new Vector3(player.playerRB.velocity.x, -player.playerPlaneValue, player.playerRB.velocity.z);

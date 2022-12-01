@@ -11,18 +11,12 @@ public class Epic_Path_Handle : MonoBehaviour
     public EpicBot_Controller epic_Bot_Controller;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         finishObjPos = GameObject.FindGameObjectWithTag("Finish").transform.position;
         this.epic_Bot_Controller = this.GetComponentInChildren<EpicBot_Controller>();
         this.botAgent = this.GetComponentInChildren<NavMeshAgent>();
         botAgent.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void AdvancedMove()

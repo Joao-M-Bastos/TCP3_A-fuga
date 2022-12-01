@@ -81,7 +81,7 @@ public class EpicBot_Controller : MonoBehaviour
     private void Start()
     {
         StartValues();
-        botCurrentMachine = dumbWalk_BotState;
+        botCurrentMachine = air_BotState;
     }
 
     public void StartValues()

@@ -47,13 +47,15 @@ public class Player_Controller : MonoBehaviour
 
     public HasWallOnFront hasWall;
 
+    public FaseManager faseManager;
+
     #endregion
 
     #region Variaveis
 
     private float AxisX, AxisY;
 
-    public float turnSmoothTime, turnSmoothVelocity, airJumpCount, dashCoolDown;
+    public float turnSmoothTime, turnSmoothVelocity, airJumpCount, baseDashCoolDown, gravityValue;
 
     [SerializeField] public float frictionValue, playerBaseSpeed;
     [SerializeField] public float maxAirJumpCount;
@@ -76,6 +78,7 @@ public class Player_Controller : MonoBehaviour
         playerRespawnScrp = GetComponent<PlayerRespawnScrp>();
         this.playerRB = this.GetComponent<Rigidbody>();
         playerRedDoll = this.GetComponent<RagdollEffect>();
+        faseManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FaseManager>();
     }
 
     private void Start()
@@ -106,6 +109,28 @@ public class Player_Controller : MonoBehaviour
         this.turnSmoothTime = 0.05f;
         this.stepSoundDelay = 5f;
         this.isWingsOpen = false;
+        this.baseDashCoolDown = 1.5f;
+        this.maxAirJumpCount = 0;
+        this.gravityValue = 0;
+
+        switch (faseManager.ModifierID)
+        {
+            case 0:
+                this.baseDashCoolDown -= 0.75f;
+                break;
+            case 1:
+                this.maxAirJumpCount += 1;
+                break;
+            case 2:
+                this.gravityValue += 1;
+                break;
+            case 3:
+                this.gravityValue -= 1;
+                break;
+
+        }
+        Debug.Log(faseManager.ModifierID);
+
         UpdateSpeed();
     }
 
@@ -114,17 +139,13 @@ public class Player_Controller : MonoBehaviour
         this.playerSpeed = this.playerBaseSpeed;
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        if (playerView.IsMine)
-        {
-            {
-                Debug.Log(currentMachine);
-                currentMachine.UpdateState(this);
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            faseManager.LeveRoom();
+
+        currentMachine.UpdateState(this);
     }
 
     //----------------------------------------- ACTIONS -----------------------------------

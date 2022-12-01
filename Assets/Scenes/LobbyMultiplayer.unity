@@ -6092,7 +6092,7 @@ PrefabInstance:
     - target: {fileID: 5892934276229448301, guid: ff49102d6c8684346b43b8a0b2fb89ba,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnLeftRoom
+      value: OnClickLeftRoom
       objectReference: {fileID: 0}
     - target: {fileID: 5892934276229448301, guid: ff49102d6c8684346b43b8a0b2fb89ba,
         type: 3}
@@ -6767,7 +6767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1277112209
 RectTransform:
   m_ObjectHideFlags: 0

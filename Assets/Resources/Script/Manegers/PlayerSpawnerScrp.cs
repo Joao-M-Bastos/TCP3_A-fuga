@@ -9,7 +9,7 @@ public class PlayerSpawnerScrp : MonoBehaviour
     public GameObject[] botPreFabs;
     public Transform[] spawnPoints;
 
-    public void SpawnPlayer()
+    public void SpawnPlayer(int totalNumberOfPlayer)
     {
         int random = Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[random];
@@ -17,7 +17,7 @@ public class PlayerSpawnerScrp : MonoBehaviour
         PhotonNetwork.Instantiate(playerToSpawn.name, spawnPoint.position, Quaternion.identity);
         int playersNumber = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        while (playersNumber < 6)
+        while (playersNumber < totalNumberOfPlayer)
         {
             int botRandom = Random.Range(0, spawnPoints.Length);
             Transform botSpawnPoint = spawnPoints[botRandom];

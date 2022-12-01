@@ -16,7 +16,7 @@ public class LobbyManagertester : MonoBehaviourPunCallbacks
     public GameObject lobbySelection;
     public GameObject gameSelection;
     public GameObject listRoomScreen;
-    public GameObject room; 
+    public GameObject room;
     public TextMeshProUGUI roomName;
 
     public RoomItem roomItemPrefab;
@@ -36,7 +36,7 @@ public class LobbyManagertester : MonoBehaviourPunCallbacks
     {
         menuPrincipal.SetActive(true);
     }
-    
+
     public void playButton()
     {
         menuPrincipal.SetActive(false);
@@ -71,7 +71,7 @@ public class LobbyManagertester : MonoBehaviourPunCallbacks
         gameSelection.SetActive(false);
         listRoomScreen.SetActive(true);
     }
-    
+
     public void voltarListRoom()
     {
         listRoomScreen.SetActive(false);
@@ -91,7 +91,7 @@ public class LobbyManagertester : MonoBehaviourPunCallbacks
         }
     }
 
-    
+
 
     public override void OnJoinedRoom()
     {
@@ -183,7 +183,7 @@ public class LobbyManagertester : MonoBehaviourPunCallbacks
             PlayerItem newplayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newplayerItem.SetPlayerInfo(player.Value);
             playerItemsList.Add(newplayerItem);
-        } 
+        }
     }
     void Update()
     {
