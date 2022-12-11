@@ -7,7 +7,6 @@ public class RagDoll_PlayerState : Player_StateMachine
     public override void EnterState(Player_Controller player)
     {
         player.gooseAnimator.SetBool("Runnig", false);
-
     }
 
     public override void UpdateState(Player_Controller player)
@@ -20,6 +19,12 @@ public class RagDoll_PlayerState : Player_StateMachine
         if (!player.playerRedDoll.IsRagDoll)
         {
             player.ChangeState(player.walk_PlayerState);
+        }
+
+        if (player.playerRespawnScrp.IsDead)
+        {
+            player.playerRespawnScrp.IsDead = false;
+            player.ChangeState(player.spawning_PlayerState);
         }
     }
 }

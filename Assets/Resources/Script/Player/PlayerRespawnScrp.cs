@@ -5,13 +5,14 @@ using UnityEngine;
 public class PlayerRespawnScrp : MonoBehaviour
 {
     [SerializeField] private int lastRespawnValue;
+    public bool isDead;
 
     private void OnTriggerEnter(Collider colisao)
     {
         if (colisao.CompareTag("Kill"))
         {
             GameObject.Find("RespawnManeger").gameObject.GetComponent<RespawnMngr>().DoRespawn(this.transform, lastRespawnValue);
-            this.transform.rotation = Quaternion.identity;
+            if(!isDead) isDead = true;
         }
     }
 
@@ -19,5 +20,11 @@ public class PlayerRespawnScrp : MonoBehaviour
     {
         set { lastRespawnValue = value; }
         get { return lastRespawnValue; }
+    }
+
+    public bool IsDead
+    {
+        set { isDead = value; }
+        get { return isDead; }
     }
 }

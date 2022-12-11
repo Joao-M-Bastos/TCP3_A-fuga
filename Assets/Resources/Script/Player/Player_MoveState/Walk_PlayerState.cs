@@ -80,6 +80,12 @@ public class Walk_PlayerState : Player_StateMachine
 
         if (player.IsRagdollEffect())
             player.ChangeState(player.ragDoll_PlayerState);
+
+        if (player.playerRespawnScrp.IsDead)
+        {
+            player.playerRespawnScrp.IsDead = false;
+            player.ChangeState(player.spawning_PlayerState);
+        }
     }
 
     public void Friction(Player_Controller player)

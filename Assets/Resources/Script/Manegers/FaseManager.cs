@@ -13,7 +13,6 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
     GameObject[] playerObjects;
 
-    GameObject cameraGameObject;
     private EpicBot_Controller t;
 
     public int modfierID;
@@ -33,17 +32,14 @@ public class FaseManager : MonoBehaviourPunCallbacks
     private void OnLevelWasLoaded(int level)
     {
         playerSpawnerScrp = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<PlayerSpawnerScrp>();
-        cameraGameObject = GameObject.Find("SecondCamera");
 
         GameObject[] faseObjects = GameObject.FindGameObjectsWithTag("GameController");
 
-        while(faseObjects.Length >= 1)
+        while(faseObjects.Length > 1)
         {
             Destroy(faseObjects[1]);
             faseObjects = GameObject.FindGameObjectsWithTag("GameController");
         }
-
-        cameraGameObject.SetActive(false);
 
         levelNumber -= -1;
         winNumber = 0;
@@ -59,6 +55,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
             case 3:
                 maxWinNumber = 1;
                 break;
+
 
         }
 
@@ -77,43 +74,32 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
     public void EndGame()
     {
-        /*
         playerObjects = GameObject.FindGameObjectsWithTag("Player");
 
         bool hasWin;
 
         foreach(GameObject player in playerObjects)
-        {
             if (player.GetComponent<PhotonView>().IsMine)
-            {
-                hasWin = player.GetComponent<WinLooseScpt>().HasWinLoose;
-                if (!hasWin)
                     PhotonNetwork.LeaveRoom();
-            }
 
-            if(player.TryGetComponent<EpicBot_Controller>(out t))
-            {
-                Destroy(player.gameObject);
-            }
-        }
-        */
+        NextGame();
+    }
 
-
-
-        PhotonNetwork.LoadLevel(UnityEngine.Random.Range(2,4));
+    IEnumerator NextGame()
+    {
+        yield return new WaitForSeconds(4);
+        PhotonNetwork.LoadLevel(UnityEngine.Random.Range(2, 4));
     }
 
     public void PlayerHasWin(GameObject playerPreFab)
     {
 
-        //Destroy(playerPreFab);
-
-        //cameraGameObject.SetActive(true);
+        Destroy(playerPreFab);
 
         winNumber++;
 
-        if (winNumber >= maxWinNumber)
-            EndGame();
+        //if (winNumber >= maxWinNumber)
+            //EndGame();
     }
 
     public override void OnLeftRoom()

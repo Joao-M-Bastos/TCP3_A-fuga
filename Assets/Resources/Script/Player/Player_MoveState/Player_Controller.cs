@@ -14,6 +14,7 @@ public class Player_Controller : MonoBehaviour
     public Walk_PlayerState walk_PlayerState = new Walk_PlayerState();
     public Air_PlayerState air_PlayerState = new Air_PlayerState();
     public RagDoll_PlayerState ragDoll_PlayerState = new RagDoll_PlayerState();
+    public Spawning_PlayerState spawning_PlayerState = new Spawning_PlayerState();
 
     #endregion
 
@@ -89,7 +90,7 @@ public class Player_Controller : MonoBehaviour
         }
 
         StartValues();
-        currentMachine = walk_PlayerState;
+        this.ChangeState(spawning_PlayerState);
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -125,7 +126,7 @@ public class Player_Controller : MonoBehaviour
                 this.gravityValue += 1;
                 break;
             case 3:
-                this.gravityValue -= 1;
+                this.gravityValue -= 2;
                 break;
 
         }

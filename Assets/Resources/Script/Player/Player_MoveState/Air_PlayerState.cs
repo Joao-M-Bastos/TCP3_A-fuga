@@ -35,6 +35,13 @@ public class Air_PlayerState : Player_StateMachine
             player.gooseAnimator.SetBool("WingsOpen", false);
             player.ChangeState(player.ragDoll_PlayerState);
         }
+
+        if (player.playerRespawnScrp.IsDead)
+        {
+            player.gooseAnimator.SetBool("WingsOpen", false);
+            player.playerRespawnScrp.IsDead = false;
+            player.ChangeState(player.spawning_PlayerState);
+        }
     }
 
     public void Jump(Player_Controller player)
