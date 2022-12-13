@@ -9,6 +9,7 @@ TagManager:
   - Kill
   - SpawnManager
   - SecondCamera
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Player
   - Ground
   - 
   - 
