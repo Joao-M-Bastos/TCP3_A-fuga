@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Walk_PlayerState : Player_StateMachine
+public class Swim_PlayerState : Player_StateMachine
 {
-    private float dashCoolDown;
     public override void EnterState(Player_Controller player)
     {
-
+        player.gooseAnimator.SetBool("Swim", true);
     }
 
     public override void UpdateState(Player_Controller player)
@@ -17,13 +16,7 @@ public class Walk_PlayerState : Player_StateMachine
         if (Input.GetKeyDown(KeyCode.Space))
             Jump(player);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && this.dashCoolDown < 0)
-            PlayerDash(player);
-        else
-            this.dashCoolDown -= Time.deltaTime;
-
         Move(player);
-
 
         ChangeState(player);
     }
@@ -45,7 +38,7 @@ public class Walk_PlayerState : Player_StateMachine
 
             moveDir.y = player.playerRB.velocity.y;
 
-            player.gooseAnimator.SetBool("Runnig", true);
+            //player.gooseAnimator.SetBool("Runnig", true);
 
             if (Mathf.Abs(player.playerRB.velocity.x) + Mathf.Abs(player.playerRB.velocity.z) <= 7.5f)
             {
@@ -66,29 +59,33 @@ public class Walk_PlayerState : Player_StateMachine
         player.playerRB.velocity = new Vector3(player.playerRB.velocity.x, player.playerJumpForce, player.playerRB.velocity.z);
     }
 
-    public void PlayerDash(Player_Controller player)
-    {
-        player.gooseAnimator.SetTrigger("Dash");
-        player.playerRB.AddForce(player.playerRB.transform.forward * 400);
-        this.dashCoolDown = player.baseDashCoolDown;
-    }
-
     public void ChangeState(Player_Controller player)
     {
         if (!player.onGoundInstance.isOnGround)
+        {
+            player.gooseAnimator.SetBool("Swim", false);
             player.ChangeState(player.air_PlayerState);
+        }
+
 
         if (player.IsRagdollEffect())
+        {
+            player.gooseAnimator.SetBool("Swim", false);
             player.ChangeState(player.ragDoll_PlayerState);
+        }
 
         if (player.playerRespawnScrp.IsDead)
         {
+            player.gooseAnimator.SetBool("Swim", false);
             player.playerRespawnScrp.IsDead = false;
             player.ChangeState(player.spawning_PlayerState);
         }
 
-        if (player.isOnWater)
-            player.ChangeState(player.swim_PlayerState);
+        if (!player.isOnWater)
+        {
+            player.gooseAnimator.SetBool("Swim", false);
+            player.ChangeState(player.walk_PlayerState);
+        }
     }
 
     public void Friction(Player_Controller player)
@@ -104,10 +101,6 @@ public class Walk_PlayerState : Player_StateMachine
             playerActualSpeed.z -= Mathf.Sign(playerActualSpeed.z) * player.frictionValue * Time.deltaTime;
         else
             playerActualSpeed.z = 0;
-
-        if(playerActualSpeed.z + playerActualSpeed.x == 0)
-            player.gooseAnimator.SetBool("Runnig", false);
-
 
         player.playerRB.velocity = playerActualSpeed;
     }

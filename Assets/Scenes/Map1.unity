@@ -1477,7 +1477,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 10.359, y: 180, z: 0}
 --- !u!1 &500605599
 GameObject:
@@ -4047,51 +4047,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2005019916}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2065620933
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2065620934}
-  - component: {fileID: 2065620935}
-  m_Layer: 0
-  m_Name: FaseManagerObj
-  m_TagString: GameController
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2065620934
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065620933}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2065620935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065620933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777e479746ca4f54b8d6c771b0bba63d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  modfierID: 0
 --- !u!1001 &2133033908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5692,6 +5647,7 @@ GameObject:
   - component: {fileID: 1876450727175985143}
   - component: {fileID: 2733512496619243672}
   - component: {fileID: 5877019499456836278}
+  - component: {fileID: 5877019499456836279}
   m_Layer: 10
   m_Name: rio
   m_TagString: Ground
@@ -5713,6 +5669,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7576696457307287126, guid: 11ab47ac8d6e3294d96e871a197c99d6, type: 3}
+--- !u!114 &5877019499456836279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5877019499456836277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f694d5607d735c489a29b4b5ed0d9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5912438350317160651
 GameObject:
   m_ObjectHideFlags: 0

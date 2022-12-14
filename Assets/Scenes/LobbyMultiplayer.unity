@@ -6829,6 +6829,8 @@ MonoBehaviour:
   gameSelection: {fileID: 1424891906}
   listRoomScreen: {fileID: 437979646}
   room: {fileID: 1413638781}
+  gameManagerPre: {fileID: 1520132463811695279, guid: 5f1ac83faeb4cb745b9eb8f79cea4dbc,
+    type: 3}
   roomName: {fileID: 2039011219}
   roomItemPrefab: {fileID: 7277160027142640419, guid: ff49102d6c8684346b43b8a0b2fb89ba,
     type: 3}

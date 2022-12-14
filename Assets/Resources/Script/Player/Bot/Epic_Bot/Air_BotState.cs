@@ -23,7 +23,9 @@ public class Air_BotState : Bot_StateMachine
     {
         if (bot.onGoundInstance.isOnGround)
         {
+            bot.gooseAnimator.SetBool("WingsOpen", false);
             bot.gooseAnimator.SetTrigger("Levantar");
+
 
             if (bot.path_Handle.OnNavMesh(false))
                 bot.ChangeState(bot.epicWalk_BotState);

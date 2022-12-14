@@ -17,6 +17,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject gameSelection;
     public GameObject listRoomScreen;
     public GameObject room;
+    public GameObject gameManagerPre;
     public TextMeshProUGUI roomName;
 
     public RoomItem roomItemPrefab;
@@ -89,14 +90,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.InRoom)
             PhotonNetwork.LeaveRoom();
 
-        PhotonNetwork.JoinLobby();
+        if(!PhotonNetwork.InLobby)
+            PhotonNetwork.JoinLobby();
     }
 
     public void clickCreateRoom()
     {
-        if (roomInputField.text.Length >= 1)
+        if (roomInputField.text.Length > 1)
         {
-            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 2 });
+            PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 5 });
         }
     }
 
@@ -206,6 +208,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void OnClickPlayButton()
     {
+        Instantiate(gameManagerPre, Vector3.zero, Quaternion.identity);
         PhotonNetwork.LoadLevel("Map1");
     }
 
