@@ -90,6 +90,8 @@ public class Player_Controller : MonoBehaviour
         }
 
         StartValues();
+        UpdateSpeed();
+
         this.ChangeState(spawning_PlayerState);
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -118,20 +120,24 @@ public class Player_Controller : MonoBehaviour
         {
             case 0:
                 this.baseDashCoolDown -= 0.75f;
+                Debug.Log("Mais dash");
                 break;
             case 1:
                 this.maxAirJumpCount += 1;
+                Debug.Log("Mais Pulo");
                 break;
             case 2:
                 this.gravityValue += 1;
+                Debug.Log("Mais gravidade");
                 break;
             case 3:
                 this.gravityValue -= 2;
+                Debug.Log("Menos gravidade");
                 break;
 
         }
 
-        UpdateSpeed();
+
     }
 
     public void UpdateSpeed()

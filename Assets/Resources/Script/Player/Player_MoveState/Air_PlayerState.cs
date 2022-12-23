@@ -14,7 +14,6 @@ public class Air_PlayerState : Player_StateMachine
         if (Input.GetKeyDown(KeyCode.Space) && player.airJumpCount > 0)
             Jump(player);
 
-
         Fly(player);
 
         ChangeState(player);

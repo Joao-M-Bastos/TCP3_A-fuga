@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,22 +8,34 @@ public class RagdollEffect : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip audioClipGetHit, audioClipGetHitHonk;
 
+    public bool doragdollll, undoragdolllll;
+
     private bool ragDollEffect, isChangingRagDoll, touchingGround;
 
     private float ragdollCount;
 
-    public Rigidbody thisRB;
+    Rigidbody thisRB;
+    CapsuleCollider thisCapsule;
+    [SerializeField] Animator thisAnimator;
+
+    [SerializeField] CapsuleCollider[] bonesCapsules;
+    [SerializeField] BoxCollider[] bonesBoxes;
+    [SerializeField] Rigidbody[] bonesRigidBodies;
 
     private void Awake()
     {
+        audioSource = this.gameObject.GetComponent<AudioSource>();
         thisRB = this.gameObject.GetComponent<Rigidbody>();
+        thisCapsule = this.gameObject.GetComponent<CapsuleCollider>();
     }
 
     public void RagDollOn()
     {
         IsRagDoll = true;
         this.gameObject.GetComponent<Collider>().material.dynamicFriction = 1;
-        thisRB.freezeRotation = !IsRagDoll;
+
+        TurnPhiphiscs(true);
+
         ragdollCount = 3;
     }
 
@@ -31,9 +44,37 @@ public class RagdollEffect : MonoBehaviour
         audioSource.PlayOneShot(audioClipGetHitHonk, 1);
         this.transform.rotation = new Quaternion(0, 0, 0, 0);
         IsRagDoll = false;
-        thisRB.freezeRotation = !IsRagDoll;
+
+        TurnPhiphiscs(false);
+
         isChangingRagDoll = IsRagDoll;
         this.gameObject.GetComponent<Collider>().material.dynamicFriction = 0;
+    }
+
+    private void TurnPhiphiscs(bool v)
+    {
+        if (thisAnimator != null && false)
+        {
+            thisAnimator.enabled = !v;
+            thisRB.isKinematic = v;
+            thisCapsule.isTrigger = v;
+
+            foreach (Rigidbody rb in bonesRigidBodies)
+            {
+                rb.isKinematic = !v;
+                rb.useGravity = v;
+            }
+
+            foreach (CapsuleCollider cc in bonesCapsules)
+                cc.enabled = v;
+
+            foreach (BoxCollider bc in bonesBoxes)
+                bc.enabled = v;
+        }
+        else
+        {
+            thisRB.freezeRotation = !IsRagDoll;
+        }
     }
 
     private void Update()
@@ -46,10 +87,23 @@ public class RagdollEffect : MonoBehaviour
             }
             ragdollCount -= Time.deltaTime;
         }
+
+        if (doragdollll)
+        {
+            RagDollOn();
+            doragdollll = false;
+        }
+
+        if (undoragdolllll)
+        {
+            RagDollOff();
+            undoragdolllll = false;
+        }
+
+
     }
 
     //-------------------------------------- TESTS ----------------------------------
-
     private void OnCollisionStay(Collision colisao)
     {
         if (colisao.gameObject.CompareTag("Ground"))

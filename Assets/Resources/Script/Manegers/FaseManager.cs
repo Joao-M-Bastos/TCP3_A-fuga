@@ -31,11 +31,14 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
         StartGame();
 
-
-
         DontDestroyOnLoad(this.gameObject);
-    }
 
+        GameObject[] fasesManagers = GameObject.FindGameObjectsWithTag("GameController");
+
+        foreach(GameObject go in fasesManagers)
+            if(go.GetComponent<FaseManager>().winNumber == 0 && fasesManagers.Length > 1)
+                Destroy(this);
+    }
 
     private void OnLevelWasLoaded(int level)
     {
@@ -46,6 +49,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
             switch (levelNumber)
             {
+
                 case 1:
                     maxWinNumber = 8;
                     break;
@@ -90,7 +94,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
         {
             if (player.TryGetComponent<Player_Controller>(out playerControler) && playerControler.playerView.IsMine)
             {
-                PhotonNetwork.Disconnect();
+                PhotonNetwork.LeaveRoom();
             }
         }
 
@@ -114,25 +118,23 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
     public void PlayerHasWin(GameObject playerPreFab)
     {
-
         Destroy(playerPreFab);
 
         winNumber++;
     }
 
-    public override void OnDisconnected(DisconnectCause cause)
+    public override void OnLeftRoom()
     {
-
         Cursor.lockState = CursorLockMode.None;
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("LooseScreen");
 
         Destroy(this.gameObject);
     }
 
     public void LeveRoom()
     {
-        PhotonNetwork.Disconnect();
+        PhotonNetwork.LeaveRoom();
     }
 
     public int ModifierID{
