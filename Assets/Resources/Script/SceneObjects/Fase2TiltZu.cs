@@ -14,6 +14,10 @@ public class Fase2TiltZu : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             disco.transform.Rotate(0.0f, 0.0f, -speed * Time.deltaTime, Space.World);
+            if (disco.transform.eulerAngles.z < -30)
+            {
+                disco.transform.eulerAngles = new Vector3(disco.transform.eulerAngles.x, disco.transform.eulerAngles.y, -30);
+            }
         }
     }
 }
