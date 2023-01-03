@@ -13,13 +13,13 @@ public class TroncosSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnTronco", 0.25f, 0.25f);
+        InvokeRepeating("SpawnTronco", 1f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void SpawnTronco()

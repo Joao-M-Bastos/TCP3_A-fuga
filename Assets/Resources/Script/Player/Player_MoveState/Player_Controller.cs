@@ -23,6 +23,9 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] public AudioSource audioSource;
     [SerializeField] public AudioClip audioClipJump;
+    [SerializeField] public AudioClip audioClipDoubleJump;
+    [SerializeField] public AudioClip audioClipDash;
+
     [SerializeField] public AudioClip[] audioClipSteps;
 
 

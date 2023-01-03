@@ -208,7 +208,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void OnClickPlayButton()
     {
-        //PhotonNetwork.Instantiate(gameManagerPre.name, Vector3.zero, Quaternion.identity);
         PhotonNetwork.LoadLevel("Map1");
     }
 

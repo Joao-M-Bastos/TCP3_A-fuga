@@ -488,22 +488,22 @@ PrefabInstance:
     - target: {fileID: 4376375550468635512, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_FollowOffset.y
-      value: 0.06115183
+      value: 0.4993709
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550468635512, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_FollowOffset.z
-      value: -4.561152
+      value: -4.999371
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550485937462, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_FollowOffset.y
-      value: 0.06115183
+      value: 0.4993709
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550485937462, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_FollowOffset.z
-      value: -4.561152
+      value: -4.999371
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550720524806, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
@@ -517,13 +517,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550720524806, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376375550720524806, guid: 5c54659d269a26e4e95de3e3c73db3eb,
+        type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.706229
+      value: 0.70622903
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550720524806, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.03522361
+      value: 0.035223614
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550720524806, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
@@ -533,17 +538,17 @@ PrefabInstance:
     - target: {fileID: 4376375550720524806, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.035223607
+      value: -0.035223603
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550865249435, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_FollowOffset.y
-      value: 0.06115183
+      value: 0.4993709
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550865249435, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_FollowOffset.z
-      value: -4.561152
+      value: -4.999371
       objectReference: {fileID: 0}
     - target: {fileID: 4376375551143102697, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
@@ -553,22 +558,22 @@ PrefabInstance:
     - target: {fileID: 4376375551143102697, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70704234
+      value: 0.7070424
       objectReference: {fileID: 0}
     - target: {fileID: 4376375551143102697, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.009546633
+      value: 0.009546634
       objectReference: {fileID: 0}
     - target: {fileID: 4376375551143102697, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.70704234
+      value: 0.7070423
       objectReference: {fileID: 0}
     - target: {fileID: 4376375551143102697, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.009546633
+      value: -0.009546634
       objectReference: {fileID: 0}
     - target: {fileID: 4840682584898404917, guid: 5c54659d269a26e4e95de3e3c73db3eb,
         type: 3}
@@ -702,7 +707,7 @@ GameObject:
   - component: {fileID: 396066430}
   m_Layer: 10
   m_Name: Cylinder
-  m_TagString: Ground
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1147,7 +1152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &986260533
 Transform:
   m_ObjectHideFlags: 0
@@ -1463,8 +1468,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 91.85608, y: 1, z: 168.52692}
-  m_Center: {x: 3.7357254, y: 0, z: -18.095158}
+  m_Size: {x: 119.63087, y: 4.180649, z: 168.52692}
+  m_Center: {x: 9.332043, y: 52.127556, z: -18.095154}
 --- !u!1 &1682942323
 GameObject:
   m_ObjectHideFlags: 0
