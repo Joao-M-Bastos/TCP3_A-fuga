@@ -12,6 +12,7 @@ public class Player_Controller : MonoBehaviour
     public Player_StateMachine currentMachine;
 
     public Walk_PlayerState walk_PlayerState = new Walk_PlayerState();
+    public Swim_PlayerState swim_PlayerState = new Swim_PlayerState();
     public Air_PlayerState air_PlayerState = new Air_PlayerState();
     public RagDoll_PlayerState ragDoll_PlayerState = new RagDoll_PlayerState();
     public Spawning_PlayerState spawning_PlayerState = new Spawning_PlayerState();
@@ -22,6 +23,9 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] public AudioSource audioSource;
     [SerializeField] public AudioClip audioClipJump;
+    [SerializeField] public AudioClip audioClipDoubleJump;
+    [SerializeField] public AudioClip audioClipDash;
+
     [SerializeField] public AudioClip[] audioClipSteps;
 
 
@@ -34,7 +38,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] public Animator gooseAnimator;
     [SerializeField] public Transform cameraTransform;
 
-    private PhotonView playerView;
+    [SerializeField] public PhotonView playerView;
 
     public Rigidbody playerRB;
 
@@ -63,7 +67,7 @@ public class Player_Controller : MonoBehaviour
 
     public float playerSpeed, playerJumpForce, playerPlaneValue;
 
-    public bool isWingsOpen;
+    public bool isWingsOpen, isOnWater;
 
     public Vector3 moveDirection;
 
@@ -75,7 +79,6 @@ public class Player_Controller : MonoBehaviour
     {
         onGoundInstance = GetComponentInChildren<OnGround>();
         hasWall = new HasWallOnFront();
-        playerView = GetComponent<PhotonView>();
         playerRespawnScrp = GetComponent<PlayerRespawnScrp>();
         this.playerRB = this.GetComponent<Rigidbody>();
         playerRedDoll = this.GetComponent<RagdollEffect>();
@@ -90,6 +93,8 @@ public class Player_Controller : MonoBehaviour
         }
 
         StartValues();
+        UpdateSpeed();
+
         this.ChangeState(spawning_PlayerState);
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -118,21 +123,24 @@ public class Player_Controller : MonoBehaviour
         {
             case 0:
                 this.baseDashCoolDown -= 0.75f;
+                Debug.Log("Mais dash");
                 break;
             case 1:
                 this.maxAirJumpCount += 1;
+                Debug.Log("Mais Pulo");
                 break;
             case 2:
                 this.gravityValue += 1;
+                Debug.Log("Mais gravidade");
                 break;
             case 3:
                 this.gravityValue -= 2;
+                Debug.Log("Menos gravidade");
                 break;
 
         }
-        Debug.Log(faseManager.ModifierID);
 
-        UpdateSpeed();
+
     }
 
     public void UpdateSpeed()
@@ -161,7 +169,8 @@ public class Player_Controller : MonoBehaviour
     {
         if (playerRedDoll.IsRagDoll)
             return true;
-        return false;                }
+        return false;
+    }
 
     public void PlayStepFX()
     {

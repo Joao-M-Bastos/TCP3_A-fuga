@@ -6,6 +6,7 @@ public class DragDirection : MonoBehaviour
 {
     [SerializeField] private float dragSpeed;
     [SerializeField] private Rigidbody conveyorRigidBody;
+    [SerializeField] private bool isRiver;
 
     private void Awake()
     {
@@ -15,7 +16,10 @@ public class DragDirection : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
         Vector3 pos = conveyorRigidBody.position;
-        collision.transform.position += this.transform.forward * dragSpeed * Time.fixedDeltaTime;
+        if(isRiver && collision.gameObject.tag == "Player")
+            collision.transform.position += -this.transform.right * dragSpeed/2 * Time.fixedDeltaTime;
+        else
+            collision.transform.position += this.transform.forward * dragSpeed * Time.fixedDeltaTime;
         conveyorRigidBody.MovePosition(pos);
     }
 }

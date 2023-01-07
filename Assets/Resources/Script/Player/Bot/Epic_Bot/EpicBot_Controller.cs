@@ -60,7 +60,7 @@ public class EpicBot_Controller : MonoBehaviour
 
     public float botSpeed, botJumpForce, botPlaneValue, changeBotMoveTypeCooldown;
 
-    public bool isWingsOpen, spaceIsPressed;
+    public bool isWingsOpen, spaceIsPressed, isOnWater;
 
     public Vector3 moveDirection;
 
