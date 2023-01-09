@@ -23,29 +23,31 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-
-        winNumber = 0;
         levelNumber = 0;
-        maxWinNumber = 0;
-        cont = 0;
 
         StartGame();
-
         DontDestroyOnLoad(this.gameObject);
-
-        GameObject[] fasesManagers = GameObject.FindGameObjectsWithTag("GameController");
-
-        foreach(GameObject go in fasesManagers)
-            if(go.GetComponent<FaseManager>().winNumber == 0 && fasesManagers.Length > 1)
-                Destroy(this);
     }
 
     private void OnLevelWasLoaded(int level)
     {
-            playerSpawnerScrp = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<PlayerSpawnerScrp>();
+        winNumber = 0;
+        maxWinNumber = 0;
+        cont = 0;
 
-            levelNumber -= -1;
-            winNumber = 0;
+        GameObject[] fasesManagers = GameObject.FindGameObjectsWithTag("GameController");
+
+        if (fasesManagers.Length > 1)
+        {
+            fasesManagers[1].GetComponent<FaseManager>().cont = -500;
+            Destroy(fasesManagers[1].gameObject);
+            if (this.cont < -450)
+                return;
+        }
+
+        playerSpawnerScrp = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<PlayerSpawnerScrp>();
+
+            levelNumber += 1;
 
             switch (levelNumber)
             {
@@ -71,6 +73,9 @@ public class FaseManager : MonoBehaviourPunCallbacks
     {
         if (winNumber >= maxWinNumber && cont > 2)
             EndGame();
+
+        Debug.Log(winNumber);
+        Debug.Log(maxWinNumber);
         cont += Time.deltaTime;
     }
 
@@ -87,6 +92,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
     public void EndGame()
     {
         winNumber = -100;
+        cont = -100;
 
         playerObjects = GameObject.FindGameObjectsWithTag("Player");
         Player_Controller playerControler;

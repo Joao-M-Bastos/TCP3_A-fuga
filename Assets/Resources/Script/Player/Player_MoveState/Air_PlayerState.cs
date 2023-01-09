@@ -45,7 +45,7 @@ public class Air_PlayerState : Player_StateMachine
 
     public void Jump(Player_Controller player)
     {
-        player.audioSource.PlayOneShot(player.audioClipJump, 0.8f);
+        player.audioSource.PlayOneShot(player.audioClipDoubleJump, 0.8f);
         player.playerRB.velocity = new Vector3(player.playerRB.velocity.x, player.playerJumpForce / 1.6f, player.playerRB.velocity.z);
         player.airJumpCount--;
     }

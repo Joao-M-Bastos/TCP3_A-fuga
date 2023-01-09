@@ -69,6 +69,7 @@ public class Walk_PlayerState : Player_StateMachine
     public void PlayerDash(Player_Controller player)
     {
         player.gooseAnimator.SetTrigger("Dash");
+        player.audioSource.PlayOneShot(player.audioClipDash, 0.8f);
         player.playerRB.AddForce(player.playerRB.transform.forward * 400);
         this.dashCoolDown = player.baseDashCoolDown;
     }
