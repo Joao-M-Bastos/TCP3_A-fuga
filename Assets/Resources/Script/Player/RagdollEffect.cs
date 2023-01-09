@@ -27,6 +27,7 @@ public class RagdollEffect : MonoBehaviour
         audioSource = this.gameObject.GetComponent<AudioSource>();
         thisRB = this.gameObject.GetComponent<Rigidbody>();
         thisCapsule = this.gameObject.GetComponent<CapsuleCollider>();
+        RagDollOff();
     }
 
     public void RagDollOn()
@@ -43,6 +44,7 @@ public class RagdollEffect : MonoBehaviour
     {
         audioSource.PlayOneShot(audioClipGetHitHonk, 1);
         this.transform.rotation = new Quaternion(0, 0, 0, 0);
+        this.transform.position += new Vector3(0, 1, 0);
         IsRagDoll = false;
 
         TurnPhiphiscs(false);
@@ -53,27 +55,24 @@ public class RagdollEffect : MonoBehaviour
 
     private void TurnPhiphiscs(bool v)
     {
-        if (thisAnimator != null && false)
+        if (thisAnimator != null)
         {
             thisAnimator.enabled = !v;
-            thisRB.isKinematic = v;
+            thisRB.freezeRotation = !v;
+            thisRB.velocity = Vector3.zero;
             thisCapsule.isTrigger = v;
 
-            foreach (Rigidbody rb in bonesRigidBodies)
+            foreach (CapsuleCollider cc in bonesCapsules)
             {
-                rb.isKinematic = !v;
-                rb.useGravity = v;
+                Debug.Log("b");
+                cc.enabled = v;
             }
 
-            foreach (CapsuleCollider cc in bonesCapsules)
-                cc.enabled = v;
-
             foreach (BoxCollider bc in bonesBoxes)
+            {
+                Debug.Log("c");
                 bc.enabled = v;
-        }
-        else
-        {
-            thisRB.freezeRotation = !IsRagDoll;
+            }
         }
     }
 

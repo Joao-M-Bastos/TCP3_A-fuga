@@ -71,6 +71,8 @@ public class Player_Controller : MonoBehaviour
 
     public Vector3 moveDirection;
 
+    [SerializeField] public Transform playerParentTransform;
+
     #endregion
 
     //--------------------------------Starting Values------------------------------------
@@ -82,7 +84,7 @@ public class Player_Controller : MonoBehaviour
         playerRespawnScrp = GetComponent<PlayerRespawnScrp>();
         this.playerRB = this.GetComponent<Rigidbody>();
         playerRedDoll = this.GetComponent<RagdollEffect>();
-        faseManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FaseManager>();
+        //faseManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FaseManager>();
     }
 
     private void Start()
@@ -118,7 +120,7 @@ public class Player_Controller : MonoBehaviour
         this.baseDashCoolDown = 1.5f;
         this.maxAirJumpCount = 0;
         this.gravityValue = 0;
-
+        /*
         switch (faseManager.ModifierID)
         {
             case 0:
@@ -138,9 +140,7 @@ public class Player_Controller : MonoBehaviour
                 Debug.Log("Menos gravidade");
                 break;
 
-        }
-
-
+        }*/
     }
 
     public void UpdateSpeed()

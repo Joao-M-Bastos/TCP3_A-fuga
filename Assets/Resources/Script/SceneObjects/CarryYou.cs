@@ -6,13 +6,13 @@ public class CarryYou : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-            other.transform.SetParent(this.transform);
+        if (other.gameObject.CompareTag("Player")) {
+            other.transform.SetParent(this.transform);}
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
-            other.transform.SetParent(null);
+            other.transform.SetParent(other.GetComponent<Player_Controller>().playerParentTransform);
     }
 }
