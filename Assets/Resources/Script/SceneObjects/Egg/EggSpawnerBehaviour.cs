@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EggSpawnerBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject EggObj;
+    [SerializeField] private GameObject eggObj;
     [SerializeField] private int baseCooldown;
     private int cooldown;
 
@@ -20,7 +20,7 @@ public class EggSpawnerBehaviour : MonoBehaviour
         if(cooldown < 0)
         {
             cooldown = baseCooldown;
-            Instantiate(EggObj, this.transform.position, this.transform.rotation);
+            Instantiate(eggObj, this.transform.position, this.transform.rotation);
         }
     }
 

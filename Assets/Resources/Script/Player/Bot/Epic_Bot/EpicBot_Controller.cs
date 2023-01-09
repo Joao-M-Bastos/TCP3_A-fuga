@@ -15,6 +15,7 @@ public class EpicBot_Controller : MonoBehaviour
     public EpicWalk_BotState epicWalk_BotState = new EpicWalk_BotState();
     public Air_BotState air_BotState = new Air_BotState();
     public RagDoll_BotState ragDoll_BotState = new RagDoll_BotState();
+    public Epicbot_Reespawning respawning_BotState = new Epicbot_Reespawning();
 
     #endregion
 
@@ -49,6 +50,8 @@ public class EpicBot_Controller : MonoBehaviour
 
     public HasWallOnFront hasWall;
 
+    public FaseManager faseManager;
+
     #endregion
 
     #region Variaveis
@@ -64,6 +67,8 @@ public class EpicBot_Controller : MonoBehaviour
 
     public Vector3 moveDirection;
 
+    public int vidaParaoTitanic;
+
     #endregion
 
     //--------------------------------Starting Values------------------------------------
@@ -76,12 +81,14 @@ public class EpicBot_Controller : MonoBehaviour
         botRespawnScrp = GetComponent<PlayerRespawnScrp>();
         this.botRB = this.GetComponent<Rigidbody>();
         botRedDoll = this.GetComponent<RagdollEffect>();
+        faseManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FaseManager>();
+
     }
 
     private void Start()
     {
         StartValues();
-        botCurrentMachine = air_BotState;
+        botCurrentMachine = respawning_BotState;
     }
 
     public void StartValues()
@@ -89,6 +96,7 @@ public class EpicBot_Controller : MonoBehaviour
         this.turnSmoothTime = 0.05f;
         this.stepSoundDelay = 0.5f;
         this.isWingsOpen = false;
+        this.vidaParaoTitanic = 3;
         CleanSpeed();
     }
 
@@ -102,6 +110,11 @@ public class EpicBot_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.vidaParaoTitanic <= 0 && faseManager.isFaseTitanic)
+        {
+            faseManager.KickBot(this.gameObject);
+        }
+
         botCurrentMachine.UpdateState(this);
     }
 
@@ -117,6 +130,4 @@ public class EpicBot_Controller : MonoBehaviour
     {
         return botRedDoll.IsRagDoll ? true : false;
     }
-
-
 }

@@ -86,7 +86,7 @@ public class Player_Controller : MonoBehaviour
         playerRespawnScrp = GetComponent<PlayerRespawnScrp>();
         this.playerRB = this.GetComponent<Rigidbody>();
         playerRedDoll = this.GetComponent<RagdollEffect>();
-        //faseManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FaseManager>();
+        faseManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FaseManager>();
     }
 
     private void Start()
@@ -123,7 +123,7 @@ public class Player_Controller : MonoBehaviour
         this.maxAirJumpCount = 0;
         this.gravityValue = 0;
         vidaParaoTitanic = 3;
-        /*
+
         switch (faseManager.ModifierID)
         {
             case 0:
@@ -143,7 +143,7 @@ public class Player_Controller : MonoBehaviour
                 Debug.Log("Menos gravidade");
                 break;
 
-        }*/
+        }
     }
 
     public void UpdateSpeed()
@@ -154,9 +154,7 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(vidaParaoTitanic);
-
-        if (Input.GetKeyDown(KeyCode.Escape) || vidaParaoTitanic <= 0)
+        if (Input.GetKeyDown(KeyCode.Escape) || (vidaParaoTitanic <= 0 && faseManager.isFaseTitanic))
             faseManager.LeveRoom();
 
 

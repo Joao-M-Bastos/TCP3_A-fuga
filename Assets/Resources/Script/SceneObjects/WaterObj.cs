@@ -14,6 +14,11 @@ public class WaterObj : MonoBehaviour
                 player.isOnWater = true;
             else
                 other.gameObject.GetComponent<EpicBot_Controller>().isOnWater = true;
+
+            EpicBot_Controller bot;
+
+            if (other.gameObject.TryGetComponent<EpicBot_Controller>(out bot))
+                bot.isOnWater = false;
         }
     }
 
@@ -22,13 +27,15 @@ public class WaterObj : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Player_Controller player;
-            //EpicBot_Controller bot;
+            EpicBot_Controller bot;
+
             if (other.gameObject.TryGetComponent<Player_Controller>(out player))
                 player.isOnWater = false;
             else
                 other.gameObject.GetComponent<EpicBot_Controller>().isOnWater = false;
-            //if (other.gameObject.TryGetComponent<EpicBot_Controller>(out bot))
-               // bot.isOnWater = false;
+
+            if (other.gameObject.TryGetComponent<EpicBot_Controller>(out bot))
+                bot.isOnWater = false;
         }
     }
 }

@@ -18,6 +18,11 @@ public class EpicWalk_BotState : Bot_StateMachine
         else
             bot.path_Handle.AdvancedMove();
 
+        if (bot.isOnWater)
+            bot.gooseAnimator.SetBool("Swim", true);
+        else
+            bot.gooseAnimator.SetBool("Swim", false);
+
         ChangeState(bot);
     }
 
@@ -38,22 +43,33 @@ public class EpicWalk_BotState : Bot_StateMachine
     {
         if (!bot.onGoundInstance.isOnGround)
         {
+            bot.gooseAnimator.SetBool("Swim", false);
             bot.path_Handle.TurnAgentOff();
             bot.ChangeState(bot.air_BotState);
         }
 
         if (bot.IsRagdollEffect())
         {
+            bot.gooseAnimator.SetBool("Swim", false);
             bot.path_Handle.TurnAgentOff();
             bot.ChangeState(bot.ragDoll_BotState);
         }
 
         if (bot.changeBotMoveTypeCooldown < 0)
         {
+            bot.gooseAnimator.SetBool("Swim", false);
             bot.path_Handle.TurnAgentOff();
             bot.ChangeState(bot.dumbWalk_BotState);
         }
         else bot.changeBotMoveTypeCooldown -= Time.deltaTime;
+
+        if (bot.botRespawnScrp.IsDead)
+        {
+            bot.gooseAnimator.SetBool("Swim", false);
+            bot.vidaParaoTitanic--;
+            bot.botRespawnScrp.IsDead = false;
+            bot.ChangeState(bot.respawning_BotState);
+        }
     }
 
     public void PlayStepFX(EpicBot_Controller bot)

@@ -62,14 +62,13 @@ public class FaseManager : MonoBehaviourPunCallbacks
             if (this.cont < -450)
                 return;
         }
-
-        playerSpawnerScrp = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<PlayerSpawnerScrp>();
-
     }
 
     private void GeneratePlayers()
     {
         levelNumber += 1;
+
+        playerSpawnerScrp = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<PlayerSpawnerScrp>();
 
 
         switch (levelNumber)
@@ -166,6 +165,13 @@ public class FaseManager : MonoBehaviourPunCallbacks
     public void LeveRoom()
     {
         PhotonNetwork.LeaveRoom();
+    }
+
+    public void KickBot(GameObject botPreFab)
+    {
+        ++this.loosedPlayers;
+
+        Destroy(botPreFab);
     }
 
     public int ModifierID{

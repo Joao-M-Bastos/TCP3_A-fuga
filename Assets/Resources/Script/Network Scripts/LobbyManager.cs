@@ -208,7 +208,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void OnClickPlayButton()
     {
-        PhotonNetwork.LoadLevel("Map1");
+        PhotonNetwork.LoadLevel("Map3");
     }
 
     public override void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)

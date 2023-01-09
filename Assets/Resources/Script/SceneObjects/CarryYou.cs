@@ -7,12 +7,31 @@ public class CarryYou : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player")) {
-            other.transform.SetParent(this.transform);}
+            Player_Controller player;
+
+            if(other.TryGetComponent<Player_Controller>(out player))
+                player.playerParentTransform.SetParent(this.transform);
+
+            EpicBot_Controller bot;
+
+            if (other.TryGetComponent<EpicBot_Controller>(out bot))
+                player.playerParentTransform.SetParent(this.transform);
+
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-            other.transform.SetParent(other.GetComponent<Player_Controller>().playerParentTransform);
+
+        Player_Controller player;
+
+        if (other.TryGetComponent<Player_Controller>(out player))
+            player.playerParentTransform.SetParent(null);
+
+        EpicBot_Controller bot;
+
+        if (other.TryGetComponent<EpicBot_Controller>(out bot))
+            player.playerParentTransform.SetParent(null);
+
     }
 }

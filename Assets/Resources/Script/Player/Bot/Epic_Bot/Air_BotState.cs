@@ -32,6 +32,13 @@ public class Air_BotState : Bot_StateMachine
             else bot.ChangeState(bot.dumbWalk_BotState);
         }
 
+        if (bot.botRespawnScrp.IsDead)
+        {
+            bot.vidaParaoTitanic--;
+            bot.botRespawnScrp.IsDead = false;
+            bot.ChangeState(bot.respawning_BotState);
+        }
+
         if (bot.IsRagdollEffect())
             bot.ChangeState(bot.ragDoll_BotState);
     }
