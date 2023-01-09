@@ -9,10 +9,43 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    public GameObject layoutSuperior;
+    public TextMeshProUGUI layoutSuperiorText;
+    public GameObject telaInicial;
+    public GameObject skins;
+    public GameObject controles;
+    public GameObject configuracoes;
+    public GameObject Multiplayer;
+    public GameObject Singleplayer;
+    public GameObject Multiplayer_telas;
+    public GameObject Singleplayer_cenario;
+
+    public Button buttonSingleplayer;
+    public Button buttonMultiplayer;
+    public Button buttonMultiplayer_telas;
+    public Button buttonSingleplayer_cenario;
+    public Button buttonHome;
+    public Button buttonSkins;
+    public Button buttonConfig;
+    public Button buttonInfo;
+    public Button buttonVoltar;
+    public Button buttonVolta_singleplayer;
+    public Button buttonVoltar_singleplayer_cenario;
+    public Button buttonVoltar_multiplayer;
+    public Button buttonVoltar_multiplayer_telas;
+    public Button buttonjogar_controle;
+    public Button buttonJogar;
+
     public TMP_InputField roomInputField;
     public GameObject lobbyPanel;
     public GameObject roomPanel;
+    public GameObject menuPrincipal;
+    public GameObject lobbySelection;
+    public GameObject gameSelection;
+    public GameObject listRoomScreen;
+    public GameObject room;
     public TextMeshProUGUI roomName;
+    public TextMeshProUGUI roomNP;
 
     public RoomItem roomItemPrefab;
     List<RoomItem> roomItemsList = new List<RoomItem>();
@@ -26,11 +59,212 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Transform playerItemParent;
 
     public GameObject playbutton;
+    GameObject last_tela;
 
     private void Awake()
     {
+        layoutSuperior.SetActive(true);
+        telaInicial.SetActive(true);
+        buttonHome.enabled = false;
+        buttonSkins.enabled = true;
+        buttonConfig.enabled = true;
+        buttonInfo.enabled = true;
+        last_tela = telaInicial;
+        buttonJogar.enabled = true;
+        buttonVoltar.enabled = false;
+    }
+
+    public void setnamesuperiortext(string texto)
+    {
+        layoutSuperiorText.text = texto.ToString();
+    }
+
+    #region SinglePlayer_Mapas
+    public void corridaGranja()
+    {
+        SceneManager.LoadScene("mapa1");
+    }
+
+    public void Titanic()
+    {
+        SceneManager.LoadScene("mapa2");
+    }
+
+    public void EscapePrisao()
+    {
+        SceneManager.LoadScene("mapa3");
+    }
+
+    public void geb()
+    {
+        SceneManager.LoadScene("mapa4");
+    }
+
+    public void circuito()
+    {
+        SceneManager.LoadScene("Circuito");
+    }
+    
+    #endregion
+    public void Menu_Inicial()
+    {
+        setnamesuperiortext("INICIO");
+        last_tela.SetActive(false);
+        telaInicial.SetActive(true);
+        buttonHome.enabled = false;
+        buttonSkins.enabled = true;
+        buttonConfig.enabled = true;
+        buttonInfo.enabled = true;
+        last_tela = telaInicial;
+        buttonJogar.enabled = true;
+        buttonVoltar.enabled = false;
+    }
+
+
+    public void Menu_Skins()
+    {
+        setnamesuperiortext("SKINS");
+        last_tela.SetActive(false);
+        skins.SetActive(true);
+        buttonHome.enabled = true;
+        buttonSkins.enabled = false;
+        buttonConfig.enabled = true;
+        buttonInfo.enabled = true;
+        last_tela = skins;
+    }
+
+    public void Menu_Info()
+    {
+        setnamesuperiortext("CONTROLES");
+        last_tela.SetActive(false);
+        controles.SetActive(true);
+        buttonHome.enabled = true;
+        buttonSkins.enabled = true;
+        buttonConfig.enabled = true;
+        buttonInfo.enabled = false;
+        last_tela = controles;
+    }
+
+    public void telaconfig()
+    {
+        setnamesuperiortext("MENU");
+        last_tela.SetActive(false);
+        configuracoes.SetActive(true);
+        buttonHome.enabled = true;
+        buttonSkins.enabled = true;
+        buttonConfig.enabled = false;
+        buttonInfo.enabled = true;
+        last_tela = configuracoes;
+        buttonjogar_controle.enabled = true;
+    }
+
+    public void tela_Singleplayer()
+    {
+        setnamesuperiortext("Saguao");
+        last_tela.SetActive(false);
+        Singleplayer.SetActive(true);
+        buttonHome.enabled = true;
+        buttonSkins.enabled = true;
+        buttonConfig.enabled = true;
+        buttonInfo.enabled = true;
+        last_tela = Singleplayer;
+        buttonMultiplayer.enabled = true;
+        buttonSingleplayer.enabled = false;
+        buttonJogar.enabled = false;
+        buttonVolta_singleplayer.enabled = true;
+    }
+
+    public void tela_Singleplayer_mapas()
+    {
+        setnamesuperiortext("MAPAS");
+        last_tela.SetActive(false);
+        Singleplayer_cenario.SetActive(true);
+        buttonHome.enabled = true;
+        buttonSkins.enabled = true;
+        buttonConfig.enabled = true;
+        buttonInfo.enabled = true;
+        last_tela = Singleplayer_cenario;
+        buttonJogar.enabled = false;
+        buttonVoltar_singleplayer_cenario.enabled = true;
+    }
+
+    public void tela_Multiplayer()
+    {
+        setnamesuperiortext("Saguao");
+        last_tela.SetActive(false);
+        Multiplayer.SetActive(true);
+        buttonHome.enabled = true;
+        buttonSkins.enabled = true;
+        buttonConfig.enabled = true;
+        buttonInfo.enabled = true;
+        last_tela = Multiplayer;
+        buttonMultiplayer.enabled = false;
+        buttonSingleplayer.enabled = true;
+        buttonJogar.enabled = false;
+        buttonVoltar_multiplayer.enabled = true;
+}
+
+    public void tela_Multiplayer_selection()
+    {
+        setnamesuperiortext("SALAS");
+        last_tela.SetActive(false);
+        Multiplayer_telas.SetActive(true);
+        buttonHome.enabled = true;
+        buttonSkins.enabled = true;
+        buttonConfig.enabled = true;
+        buttonInfo.enabled = true;
+        last_tela = Multiplayer_telas;
+        buttonMultiplayer.enabled = false;
+        buttonSingleplayer.enabled = true;
+        buttonJogar.enabled = false;
+        buttonVoltar_multiplayer_telas.enabled = true;
+    }
+
+    public void testeroom()
+    {
+        gameSelection.SetActive(false);
         lobbyPanel.SetActive(true);
-        roomPanel.SetActive(false);
+    }
+
+    public void playButton()
+    {
+        menuPrincipal.SetActive(false);
+        lobbySelection.SetActive(true);
+    }
+
+    public void voltarButtonLobby()
+    {
+        menuPrincipal.SetActive(true);
+        lobbySelection.SetActive(false);
+    }
+
+    public void voltarmultiplayerButton()
+    {
+        lobbySelection.SetActive(true);
+        gameSelection.SetActive(false);
+    }
+
+    public void multiplayerButton()
+    {
+        lobbySelection.SetActive(false);
+        gameSelection.SetActive(true);
+    }
+
+    public void voltarGameSelection()
+    {
+        lobbySelection.SetActive(true);
+        gameSelection.SetActive(false);
+    }
+    public void joinButton()
+    {
+        gameSelection.SetActive(false);
+        listRoomScreen.SetActive(true);
+    }
+
+    public void voltarListRoom()
+    {
+        listRoomScreen.SetActive(false);
+        gameSelection.SetActive(true);
     }
 
     private void Start()
@@ -38,27 +272,37 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
 
-    public void clickCreateRoom()
+    /*public void clickCreateRoom()
     {
         if (roomInputField.text.Length >= 1)
         {
+
+            string nome_jogador = ("Sala de: " + PhotonNetwork.NickName);
+
             PhotonNetwork.CreateRoom(roomInputField.text, new RoomOptions() { MaxPlayers = 2 });
         }
+    }*/
+
+    public void clickCreateRoom()
+    {
+            string nome_jogador = ("Sala de: " + PhotonNetwork.NickName);
+            PhotonNetwork.CreateRoom(nome_jogador, new RoomOptions() { MaxPlayers = 16 });
     }
 
-    
+
 
     public override void OnJoinedRoom()
     {
-        lobbyPanel.SetActive(false);
+        Multiplayer.SetActive(false);
+        Multiplayer_telas.SetActive(false);
         roomPanel.SetActive(true);
-        roomName.text = "Room Name: " + PhotonNetwork.CurrentRoom.Name;
+        roomName.text = PhotonNetwork.CurrentRoom.Name;
         UpdatePlayerList();
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        if(Time.time >= nextupdatetime)
+        if (Time.time >= nextupdatetime)
         {
             UpdateRoomList(roomList);
             nextupdatetime = Time.time + timeBetweenUpdates;
@@ -87,6 +331,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             RoomItem newroom = Instantiate(roomItemPrefab, contentObject);
             newroom.setRoomName(room.Name);
+            newroom.SetNumberPlayers(room.PlayerCount.ToString());
             roomItemsList.Add(newroom);
         }
     }
@@ -113,7 +358,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        lobbyPanel.SetActive(true);
+        Multiplayer.SetActive(true);
         roomPanel.SetActive(false);
     }
 
@@ -124,28 +369,40 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     void UpdatePlayerList()
     {
-        foreach(PlayerItem item in playerItemsList)
+        foreach (PlayerItem item in playerItemsList)
         {
             Destroy(item.gameObject);
         }
         playerItemsList.Clear();
-        if(PhotonNetwork.CurrentRoom == null)
+        if (PhotonNetwork.CurrentRoom == null)
         {
             return;
         }
-        foreach(KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
+        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
             PlayerItem newplayerItem = Instantiate(playerItemPrefab, playerItemParent);
             newplayerItem.SetPlayerInfo(player.Value);
             playerItemsList.Add(newplayerItem);
-        } 
+        }
     }
+    
+    public void GetCurrentRoomPlayers()
+    {
+        int contador;
+        roomNP.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString();
+        
+    }
+
+    
+
+
     void Update()
     {
         if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
             playbutton.SetActive(true);
-        } else
+        }
+        else
         {
             playbutton.SetActive(false);
         }
@@ -159,4 +416,5 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnLobbyStatisticsUpdate(lobbyStatistics);
     }
+
 }
