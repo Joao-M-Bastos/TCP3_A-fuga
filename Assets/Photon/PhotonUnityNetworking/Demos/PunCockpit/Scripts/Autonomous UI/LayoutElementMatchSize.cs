@@ -21,7 +21,7 @@ namespace Photon.Pun.Demo.Cockpit
 
 
         public bool MatchHeight = true;
-        public bool MatchWidth;
+        public bool MatchWidth = true;
 
 
         void Update()
@@ -31,7 +31,8 @@ namespace Photon.Pun.Demo.Cockpit
             {
                 if (layoutElement.minHeight != Target.sizeDelta.y)
                 {
-                    layoutElement.minHeight = Target.sizeDelta.y;
+                    layoutElement.flexibleHeight = Target.sizeDelta.y;
+                    layoutElement.flexibleWidth = Target.sizeDelta.x;
                 }
             }
 

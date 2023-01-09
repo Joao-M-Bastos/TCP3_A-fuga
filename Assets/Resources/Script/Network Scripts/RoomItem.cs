@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 public class RoomItem : MonoBehaviour
 {
     public TextMeshProUGUI roomName;
+    public TextMeshProUGUI roomNP;
     LobbyManager lobbyManager;
 
 
@@ -15,12 +17,17 @@ public class RoomItem : MonoBehaviour
         roomName.text = _roomName;
     }
 
+    public void SetNumberPlayers(string _roomNP)
+    {
+        roomNP.text =  PhotonNetwork.CurrentRoom.PlayerCount.ToString();
+    }
+
     void Start()
     {
         lobbyManager = FindObjectOfType<LobbyManager>();
     }
 
-    public void OnclickItem()
+    public void OnclickItem()   
     {
         lobbyManager.JoinRoom(roomName.text);
     }
