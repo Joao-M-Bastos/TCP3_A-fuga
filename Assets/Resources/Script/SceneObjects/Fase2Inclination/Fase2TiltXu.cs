@@ -9,23 +9,15 @@ public class Fase2TiltXu : MonoBehaviour
     [SerializeField]
     float speed;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnTriggerStay(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
             disco.transform.Rotate(speed * Time.deltaTime, 0.0f, 0.0f, Space.World);
+            if (disco.transform.eulerAngles.x > 30)
+            {
+                disco.transform.eulerAngles = new Vector3(30, disco.transform.eulerAngles.y, disco.transform.eulerAngles.z);
+            }
         }
     }
 }
