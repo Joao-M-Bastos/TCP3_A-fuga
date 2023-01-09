@@ -9,7 +9,7 @@ TagManager:
   - Kill
   - SpawnManager
   - SecondCamera
-  - Bullet
+  - FASETITANIC
   layers:
   - Default
   - TransparentFX
@@ -17,10 +17,10 @@ TagManager:
   - 
   - Water
   - UI
-  - OutlineObj
   - 
   - 
-  - Player
+  - 
+  - 
   - Ground
   - 
   - 

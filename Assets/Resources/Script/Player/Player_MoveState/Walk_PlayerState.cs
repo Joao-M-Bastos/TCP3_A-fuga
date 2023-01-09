@@ -84,6 +84,7 @@ public class Walk_PlayerState : Player_StateMachine
 
         if (player.playerRespawnScrp.IsDead)
         {
+            player.vidaParaoTitanic--;
             player.playerRespawnScrp.IsDead = false;
             player.ChangeState(player.spawning_PlayerState);
         }

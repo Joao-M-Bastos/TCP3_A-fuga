@@ -76,6 +76,7 @@ public class Swim_PlayerState : Player_StateMachine
 
         if (player.playerRespawnScrp.IsDead)
         {
+            player.vidaParaoTitanic--;
             player.gooseAnimator.SetBool("Swim", false);
             player.playerRespawnScrp.IsDead = false;
             player.ChangeState(player.spawning_PlayerState);
