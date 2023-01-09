@@ -11,7 +11,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
 {
     PlayerSpawnerScrp playerSpawnerScrp;
 
-    private int winNumber, levelNumber, maxWinNumber;
+    private int winNumber, levelNumber, maxWinNumber, loosedPlayers;
 
     GameObject[] playerObjects;
 
@@ -21,11 +21,17 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
     float cont;
 
+    public bool isFaseTitanic;
+
     private void Awake()
     {
-        levelNumber = 0;
-
         StartGame();
+    }
+
+    private void StartGame()
+    {
+        levelNumber = 0;
+        modfierID = UnityEngine.Random.Range(0, 4);
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -34,8 +40,20 @@ public class FaseManager : MonoBehaviourPunCallbacks
         winNumber = 0;
         maxWinNumber = 0;
         cont = 0;
+        loosedPlayers = 0;
 
+
+        DeleteImpostors();//apaga novos Fase Managers criados
+
+        IsThisFaseTitanic();//Coloca a variavel isFaseTitaic de acordo com se a fase é ou não a do titanic
+
+        GeneratePlayers();//Gera a quantidade de jogadores e os pede para colocar em campo
+    }
+
+    private void DeleteImpostors()
+    {
         GameObject[] fasesManagers = GameObject.FindGameObjectsWithTag("GameController");
+
 
         if (fasesManagers.Length > 1)
         {
@@ -47,46 +65,50 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
         playerSpawnerScrp = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<PlayerSpawnerScrp>();
 
-            levelNumber += 1;
+    }
 
-            switch (levelNumber)
-            {
+    private void GeneratePlayers()
+    {
+        levelNumber += 1;
 
-                case 1:
-                    maxWinNumber = 8;
-                    break;
-                case 2:
-                    maxWinNumber = 4;
-                    break;
-                case 3:
-                    maxWinNumber = 1;
-                    break;
-                case 4:
-                    Win();
-                    break;
-            }
 
-            playerSpawnerScrp.SpawnPlayer(maxWinNumber + 3);
+        switch (levelNumber)
+        {
+
+            case 1:
+                maxWinNumber = 7;
+                break;
+            case 2:
+                maxWinNumber = 4;
+                break;
+            case 3:
+                maxWinNumber = 1;
+                break;
+            case 4:
+                Win();
+                break;
+        }
+
+        playerSpawnerScrp.SpawnPlayer(maxWinNumber + 3);
+    }
+
+    private void IsThisFaseTitanic()
+    {
+        if (GameObject.FindGameObjectWithTag("FASETITANIC"))
+            isFaseTitanic = true;
+        else
+            isFaseTitanic = false;
     }
 
     private void Update()
     {
-        if (winNumber >= maxWinNumber && cont > 2)
-            EndGame();
-
-        Debug.Log(winNumber);
-        Debug.Log(maxWinNumber);
-        cont += Time.deltaTime;
-    }
-
-    private void StartGame()
-    {
-        GerarModificadores();
-    }
-
-    private void GerarModificadores()
-    {
-        modfierID = UnityEngine.Random.Range(0, 4);
+        if (cont > 2)
+        {
+            if (winNumber + loosedPlayers >= maxWinNumber || loosedPlayers == 3)
+                EndGame();
+        }
+        else
+            cont += Time.deltaTime;
     }
 
     public void EndGame()
@@ -98,7 +120,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
         Player_Controller playerControler;
         foreach (GameObject player in playerObjects)
         {
-            if (player.TryGetComponent<Player_Controller>(out playerControler) && playerControler.playerView.IsMine)
+            if (player.TryGetComponent<Player_Controller>(out playerControler) && playerControler.playerView.IsMine && !isFaseTitanic)
             {
                 PhotonNetwork.LeaveRoom();
             }
@@ -118,7 +140,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
     IEnumerator NextGame()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         PhotonNetwork.LoadLevel(2);
     }
 
@@ -127,10 +149,13 @@ public class FaseManager : MonoBehaviourPunCallbacks
         Destroy(playerPreFab);
 
         winNumber++;
+        Debug.Log(winNumber);
     }
 
     public override void OnLeftRoom()
     {
+        ++this.loosedPlayers;
+
         Cursor.lockState = CursorLockMode.None;
 
         SceneManager.LoadScene("LooseScreen");

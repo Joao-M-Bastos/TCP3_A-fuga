@@ -9,6 +9,7 @@ TagManager:
   - Kill
   - SpawnManager
   - SecondCamera
+  - FASETITANIC
   layers:
   - Default
   - TransparentFX

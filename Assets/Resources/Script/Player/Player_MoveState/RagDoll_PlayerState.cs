@@ -18,11 +18,14 @@ public class RagDoll_PlayerState : Player_StateMachine
     {
         if (!player.playerRedDoll.IsRagDoll)
         {
+            player.playerRedDoll.RagDollOff();
             player.ChangeState(player.walk_PlayerState);
         }
 
         if (player.playerRespawnScrp.IsDead)
         {
+            player.vidaParaoTitanic--;
+            player.playerRedDoll.RagDollOff();
             player.playerRespawnScrp.IsDead = false;
             player.ChangeState(player.spawning_PlayerState);
         }

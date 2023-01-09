@@ -14,9 +14,10 @@ public class Fase2TiltXd : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             disco.transform.Rotate(-speed * Time.deltaTime, 0.0f, 0.0f, Space.World);
-            if (disco.transform.eulerAngles.x < -30)
+            if (disco.transform.eulerAngles.x < 340 && disco.transform.eulerAngles.x > 30)//coloquei 30 para segurança
             {
-                disco.transform.eulerAngles = new Vector3(-30, disco.transform.eulerAngles.y, disco.transform.eulerAngles.z);
+
+                disco.transform.eulerAngles = new Vector3(-20, 0, disco.transform.eulerAngles.z);
             }
         }
     }

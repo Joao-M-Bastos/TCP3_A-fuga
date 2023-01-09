@@ -73,6 +73,8 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField] public Transform playerParentTransform;
 
+    public int vidaParaoTitanic;
+
     #endregion
 
     //--------------------------------Starting Values------------------------------------
@@ -120,6 +122,7 @@ public class Player_Controller : MonoBehaviour
         this.baseDashCoolDown = 1.5f;
         this.maxAirJumpCount = 0;
         this.gravityValue = 0;
+        vidaParaoTitanic = 3;
         /*
         switch (faseManager.ModifierID)
         {
@@ -151,8 +154,11 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        Debug.Log(vidaParaoTitanic);
+
+        if (Input.GetKeyDown(KeyCode.Escape) || vidaParaoTitanic <= 0)
             faseManager.LeveRoom();
+
 
         currentMachine.UpdateState(this);
     }

@@ -35,6 +35,8 @@ public class RagdollEffect : MonoBehaviour
         IsRagDoll = true;
         this.gameObject.GetComponent<Collider>().material.dynamicFriction = 1;
 
+        thisAnimator.SetBool("WingsOpen", false);
+
         TurnPhiphiscs(true);
 
         ragdollCount = 3;
@@ -64,13 +66,11 @@ public class RagdollEffect : MonoBehaviour
 
             foreach (CapsuleCollider cc in bonesCapsules)
             {
-                Debug.Log("b");
                 cc.enabled = v;
             }
 
             foreach (BoxCollider bc in bonesBoxes)
             {
-                Debug.Log("c");
                 bc.enabled = v;
             }
         }

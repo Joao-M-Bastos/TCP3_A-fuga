@@ -37,6 +37,7 @@ public class Air_PlayerState : Player_StateMachine
 
         if (player.playerRespawnScrp.IsDead)
         {
+            player.vidaParaoTitanic--;
             player.gooseAnimator.SetBool("WingsOpen", false);
             player.playerRespawnScrp.IsDead = false;
             player.ChangeState(player.spawning_PlayerState);
