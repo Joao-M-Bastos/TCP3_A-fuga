@@ -154,8 +154,15 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || (vidaParaoTitanic <= 0 && faseManager.isFaseTitanic))
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
             faseManager.LeveRoom();
+        }
+
+        if(vidaParaoTitanic <= 0 && faseManager.isFaseTitanic)
+        {
+            faseManager.LeveRoom();
+        }
 
 
         currentMachine.UpdateState(this);
