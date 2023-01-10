@@ -22,12 +22,14 @@ public class RagDoll_BotState : Bot_StateMachine
             bot.botRedDoll.IsRagDoll = false;
             bot.vidaParaoTitanic--;
             bot.botRespawnScrp.IsDead = false;
+            bot.botRedDoll.RagDollOff();
             bot.ChangeState(bot.respawning_BotState);
             return;
         }
 
         if (!bot.botRedDoll.IsRagDoll)
         {
+            bot.botRedDoll.RagDollOff();
             bot.ChangeState(bot.epicWalk_BotState);
         }
     }

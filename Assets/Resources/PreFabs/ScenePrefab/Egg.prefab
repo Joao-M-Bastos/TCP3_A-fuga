@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6826816744358749902}
   - component: {fileID: 2456038917409316879}
   - component: {fileID: 1671145187051168703}
-  - component: {fileID: 8202760226628925566}
   - component: {fileID: -1681799608039890832}
+  - component: {fileID: 4494218572210102261}
   m_Layer: 0
   m_Name: Egg
   m_TagString: DoRagdoll
@@ -117,19 +117,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8202760226628925566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335383060776037467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f88a86aa0740849af415a2af9d78be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifetime: 5
 --- !u!114 &-1681799608039890832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,3 +130,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasBonkSFX: 1
+--- !u!114 &4494218572210102261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335383060776037467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ef25db4b3a52e4c93e0bd9cc669a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

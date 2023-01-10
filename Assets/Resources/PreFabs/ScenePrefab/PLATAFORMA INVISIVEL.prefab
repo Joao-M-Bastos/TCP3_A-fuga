@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4766280787062258265}
   - component: {fileID: 1107642136988870084}
   - component: {fileID: 8953839995179307797}
+  - component: {fileID: 5315620141212990494}
   m_Layer: 0
   m_Name: PLATAFORMA INVISIVEL
   m_TagString: Untagged
@@ -111,3 +112,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a39481559dbb0f4c838f7748df4411f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &5315620141212990494
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6781076519302713560}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.8338257, z: 2}
+  m_Center: {x: 0, y: 1.8731309, z: 0}

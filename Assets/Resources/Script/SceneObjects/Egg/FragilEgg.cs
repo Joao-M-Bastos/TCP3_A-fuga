@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class FragilEgg : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private float lifeSpam;
+
+    private void Start()
     {
-        Destroy(this.gameObject);
+        lifeSpam = 5f;
+    }
+
+    private void Update()
+    {
+        if (lifeSpam < 0)
+            Destroy(this.gameObject);
+        lifeSpam -= Time.deltaTime;
     }
 }

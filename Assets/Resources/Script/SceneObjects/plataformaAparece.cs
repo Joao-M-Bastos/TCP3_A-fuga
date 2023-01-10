@@ -9,7 +9,7 @@ public class plataformaAparece : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = false;
     }
 
-    void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Player" && GetComponent<MeshRenderer>().enabled == false)
             GetComponent<MeshRenderer>().enabled = true;

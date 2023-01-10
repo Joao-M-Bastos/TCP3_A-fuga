@@ -40,7 +40,11 @@ public class Air_BotState : Bot_StateMachine
         }
 
         if (bot.IsRagdollEffect())
+        {
+            bot.gooseAnimator.SetBool("Swim", false);
+            bot.path_Handle.TurnAgentOff();
             bot.ChangeState(bot.ragDoll_BotState);
+        }
     }
 
     public void Jump(EpicBot_Controller bot)
