@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1441216497803976112}
   - component: {fileID: 8992504327192305535}
   - component: {fileID: 2234305756217465379}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: New_Super_Carlos_el_Topo_que_Jira
   m_TagString: DoRagdoll
   m_Icon: {fileID: 0}
@@ -63,8 +63,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 4116ad3e4d8036f4892324bfc32089e4, type: 3}
-  - {fileID: -6478536213147159724, guid: 4116ad3e4d8036f4892324bfc32089e4, type: 3}
+  - {fileID: 2100000, guid: 932f3e555a3533b4dbdbab15d91ff5b8, type: 2}
+  - {fileID: 2100000, guid: b06350293e9904c448323c14a06334e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2268026805000621344}
   - component: {fileID: 4969751300248613740}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Carlos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,5 +157,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dea897cbb96314e9f04fd7ef79a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 500
+  rotationSpeed: -300
   rotationSide: 1
