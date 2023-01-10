@@ -90,7 +90,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
                 break;
         }
 
-        playerSpawnerScrp.SpawnPlayer(maxWinNumber + 3);
+        //playerSpawnerScrp.SpawnPlayer(maxWinNumber + 3);
     }
 
     private void IsThisFaseTitanic()
@@ -106,7 +106,9 @@ public class FaseManager : MonoBehaviourPunCallbacks
         if (cont > 2)
         {
             if (winNumber + loosedPlayers >= maxWinNumber || loosedPlayers == 3)
-                EndGame();
+            {
+                //EndGame();
+            }
         }
         else
             cont += Time.deltaTime;
