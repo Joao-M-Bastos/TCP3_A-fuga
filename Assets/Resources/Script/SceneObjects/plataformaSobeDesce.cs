@@ -22,10 +22,10 @@ public class plataformaSobeDesce : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime * direction), transform.position.z);
 
-        if (transform.position.y <= -5 && direction == -1)
+        if (transform.position.y <= -3 && direction == -1)
             direction = 1;
 
-        if (transform.position.y >= 5 && direction == 1)
+        if (transform.position.y >= 1 && direction == 1)
             direction = -1;
     }
 }

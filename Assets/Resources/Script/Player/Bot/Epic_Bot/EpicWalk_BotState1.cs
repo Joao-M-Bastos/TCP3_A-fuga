@@ -8,7 +8,7 @@ public class EpicWalk_BotState : Bot_StateMachine
     {
         bot.spaceIsPressed = false;
         bot.gooseAnimator.SetBool("Runnig", true);
-        bot.changeBotMoveTypeCooldown = Random.Range(5, 10);
+        bot.changeBotMoveTypeCooldown = Random.Range(10, 20);
     }
 
     public override void UpdateState(EpicBot_Controller bot)
@@ -31,7 +31,7 @@ public class EpicWalk_BotState : Bot_StateMachine
         bot.gooseAnimator.SetTrigger("Pular");
         bot.audioSource.PlayOneShot(bot.audioClipJump, 0.8f);
         bot.path_Handle.TurnAgentOff();
-        bot.transform.position += new Vector3(0,0.2f,0);
+        bot.transform.position += new Vector3(0,0.3f,0);
     }
 
     public void PlayerDash(EpicBot_Controller bot)

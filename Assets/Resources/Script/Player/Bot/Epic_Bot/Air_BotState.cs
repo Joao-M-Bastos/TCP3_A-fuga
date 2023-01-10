@@ -21,7 +21,7 @@ public class Air_BotState : Bot_StateMachine
 
     public void ChangeState(EpicBot_Controller bot)
     {
-        if (bot.onGoundInstance.isOnGround)
+        if (bot.onGoundInstance.isOnGround || bot.faseManager.isFaseTitanic)
         {
             bot.gooseAnimator.SetBool("WingsOpen", false);
             bot.gooseAnimator.SetTrigger("Levantar");

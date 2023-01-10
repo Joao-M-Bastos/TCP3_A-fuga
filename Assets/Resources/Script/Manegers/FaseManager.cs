@@ -13,7 +13,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
     private int winNumber, levelNumber, maxWinNumber, loosedPlayers;
 
-    private List<int> mapsGone;
+    private List<int> mapsGone = new List<int>();
 
     GameObject[] playerObjects;
 
@@ -45,15 +45,6 @@ public class FaseManager : MonoBehaviourPunCallbacks
         loosedPlayers = 0;
 
 
-        DeleteImpostors();//apaga novos Fase Managers criados
-
-        IsThisFaseTitanic();//Coloca a variavel isFaseTitaic de acordo com se a fase é ou não a do titanic
-
-        GeneratePlayers();//Gera a quantidade de jogadores e os pede para colocar em campo
-    }
-
-    private void DeleteImpostors()
-    {
         GameObject[] fasesManagers = GameObject.FindGameObjectsWithTag("GameController");
 
 
@@ -63,7 +54,11 @@ public class FaseManager : MonoBehaviourPunCallbacks
             Destroy(fasesManagers[1].gameObject);
             if (this.cont < -450)
                 return;
-        }
+        }//apaga novos Fase Managers criados
+
+        IsThisFaseTitanic();//Coloca a variavel isFaseTitaic de acordo com se a fase é ou não a do titanic
+
+        GeneratePlayers();//Gera a quantidade de jogadores e os pede para colocar em campo
     }
 
     private void GeneratePlayers()
@@ -77,10 +72,10 @@ public class FaseManager : MonoBehaviourPunCallbacks
         {
 
             case 1:
-                maxWinNumber = 7;
+                maxWinNumber = 11;
                 break;
             case 2:
-                maxWinNumber = 4;
+                maxWinNumber = 6;
                 break;
             case 3:
                 maxWinNumber = 1;
@@ -90,7 +85,10 @@ public class FaseManager : MonoBehaviourPunCallbacks
                 break;
         }
 
-        //playerSpawnerScrp.SpawnPlayer(maxWinNumber + 3);
+        Debug.Log(levelNumber);
+        Debug.Log(maxWinNumber + 5);
+
+        playerSpawnerScrp.SpawnPlayer(maxWinNumber + 5);
     }
 
     private void IsThisFaseTitanic()
@@ -105,9 +103,10 @@ public class FaseManager : MonoBehaviourPunCallbacks
     {
         if (cont > 2)
         {
+            Debug.Log(loosedPlayers);
             if (winNumber + loosedPlayers >= maxWinNumber || loosedPlayers == 3)
             {
-                //EndGame();
+                EndGame();
             }
         }
         else
@@ -145,12 +144,12 @@ public class FaseManager : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(1);
 
-        int rand = GenerateNewMap();
+        int rand;
 
-        while(rand == 0)
+        do
         {
             rand = GenerateNewMap();
-        }
+        } while (rand == 0);
 
         PhotonNetwork.LoadLevel("Map" + rand);
     }
@@ -164,6 +163,7 @@ public class FaseManager : MonoBehaviourPunCallbacks
             if(i == r)
                 return 0;
         }
+
         mapsGone.Add(r);
         return r;
     }

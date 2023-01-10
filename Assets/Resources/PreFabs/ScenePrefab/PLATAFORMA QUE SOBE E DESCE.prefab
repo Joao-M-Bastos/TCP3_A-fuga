@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c84a367047f2f449bb136c2f616aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBase: 5
-  speedVariation: 3
+  speedBase: 3
+  speedVariation: 2
 --- !u!64 &-8950141047059712493
 MeshCollider:
   m_ObjectHideFlags: 0

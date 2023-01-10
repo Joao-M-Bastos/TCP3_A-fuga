@@ -10,7 +10,6 @@ public class EpicBot_JumpTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("DoRagdoll"))
         {
-            
             epicBot_Controller.spaceIsPressed = true;
         }
     }

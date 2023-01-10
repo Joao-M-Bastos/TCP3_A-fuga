@@ -26,6 +26,7 @@ public class Epic_Path_Handle : MonoBehaviour
             botAgent.gameObject.SetActive(true);
             botAgent.gameObject.transform.position = epic_Bot_Controller.transform.position;
         }
+
         epic_Bot_Controller.botRB.useGravity = false;
         botAgent.isStopped = false;
         botAgent.SetDestination(finishObjPos);

@@ -606,7 +606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6280930385446751603}
   - component: {fileID: 8200686295817020189}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ganso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2656,7 +2656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 436903594250998893}
   - component: {fileID: 3058777273827172649}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: bico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2863,6 +2863,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: caaa85afbddf7fd4b9bdf905d0ac6640,
         type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: caaa85afbddf7fd4b9bdf905d0ac6640,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -2950,6 +2955,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moicano
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4cd88dddaf74ff54eb9ffeaa85b861c0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4cd88dddaf74ff54eb9ffeaa85b861c0,
         type: 3}

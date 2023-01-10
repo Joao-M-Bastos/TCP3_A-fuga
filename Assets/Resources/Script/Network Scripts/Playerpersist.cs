@@ -10,7 +10,7 @@ public class Playerpersist : MonoBehaviour
 {
     public TextMeshProUGUI text;
     public static Playerpersist instance;
-    
+
 
     private void Awake()
     {
@@ -20,17 +20,16 @@ public class Playerpersist : MonoBehaviour
 
     public void SetPlayerInfo()
     {
-        Debug.Log(PhotonNetwork.NickName + "testegame");
         text.text = PhotonNetwork.NickName.ToString();
     }
     void Start()
     {
-        SetPlayerInfo();   
+        SetPlayerInfo();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

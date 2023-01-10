@@ -73,9 +73,17 @@ public class DumbWalk_BotState : Bot_StateMachine
         if (bot.IsRagdollEffect())
             bot.ChangeState(bot.ragDoll_BotState);
 
-        if (bot.changeBotMoveTypeCooldown < 0)
+        if (bot.changeBotMoveTypeCooldown < 0 && !bot.faseManager.isFaseTitanic)
             bot.ChangeState(bot.epicWalk_BotState);
         else bot.changeBotMoveTypeCooldown -= Time.deltaTime;
+
+        if (bot.botRespawnScrp.IsDead)
+        {
+            bot.gooseAnimator.SetBool("Swim", false);
+            bot.vidaParaoTitanic--;
+            bot.botRespawnScrp.IsDead = false;
+            bot.ChangeState(bot.respawning_BotState);
+        }
     }
 
     public void Friction(EpicBot_Controller bot)

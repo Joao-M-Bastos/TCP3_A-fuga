@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Login.unity
     guid: 8ddaf8205426c314aa7e213d38730cc6
   - enabled: 1
-    path: Assets/Scenes/LobbyMultiplayera.unity
-    guid: 96c61aaa4bdaab044bf067aaf04fda29
+    path: Assets/Scenes/LobbyMultiplayer.unity
+    guid: cee454eb4ec9f6b4d82feb0784d43462
   - enabled: 1
     path: Assets/Scenes/Map1.unity
     guid: 54560bc124e4ddb4bb8dc30de07089d8
@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map3.unity
     guid: fa00ed19930d9f340b7e27d6f2d10418
+  - enabled: 1
+    path: Assets/Scenes/Map4.unity
+    guid: 2304582ca5a733348bb750d24de77fcb
   - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: c43668a1f97704249ad5dd6a5ca4148a

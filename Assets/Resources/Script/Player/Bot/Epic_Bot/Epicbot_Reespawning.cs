@@ -26,7 +26,10 @@ public class Epicbot_Reespawning : Bot_StateMachine
         if (countdown <= 0)
         {
             bot.botRB.isKinematic = false;
-            bot.ChangeState(bot.air_BotState);
+            if(bot.faseManager.isFaseTitanic)
+                bot.ChangeState(bot.dumbWalk_BotState);
+            else
+                bot.ChangeState(bot.air_BotState);
         }
     }
 }

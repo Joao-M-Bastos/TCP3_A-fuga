@@ -88,7 +88,7 @@ public class EpicBot_Controller : MonoBehaviour
     private void Start()
     {
         StartValues();
-        botCurrentMachine = respawning_BotState;
+        ChangeState(respawning_BotState);
     }
 
     public void StartValues()
