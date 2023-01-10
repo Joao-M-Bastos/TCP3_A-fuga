@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class TroncosMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    private float lifeSpam;
 
+    private void Start()
+    {
+        lifeSpam = 10f;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
+        if (lifeSpam < 0)
+            Destroy(this.gameObject);
+        lifeSpam -= Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "TroncosKill")
+        if (other.gameObject.tag == "Kill")
         {
             Destroy(gameObject);
         }

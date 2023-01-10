@@ -8,19 +8,19 @@ public class EggBehaviour : MonoBehaviour
 
     private void Start()
     {
-        lifeSpam = 15;
+        lifeSpam = 20f;
     }
 
     private void Update()
     {
         if (lifeSpam < 0)
             Destroy(this.gameObject);
-        lifeSpam += Time.deltaTime;
+        lifeSpam -= Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("KILL"))
+        if (collision.gameObject.CompareTag("Kill"))
             Destroy(this.gameObject);
 
     }

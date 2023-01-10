@@ -6,7 +6,7 @@ public class EggSpawnerBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject eggObj;
     [SerializeField] private int baseCooldown;
-    private int cooldown;
+    private float cooldown;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,7 @@ public class EggSpawnerBehaviour : MonoBehaviour
             cooldown = baseCooldown;
             Instantiate(eggObj, this.transform.position, this.transform.rotation);
         }
+        cooldown -= Time.deltaTime;
     }
 
 

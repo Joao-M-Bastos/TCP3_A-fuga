@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Login.unity
     guid: 8ddaf8205426c314aa7e213d38730cc6
   - enabled: 1
-    path: Assets/Scenes/LobbyMultiplayer.unity
+    path: Assets/Scenes/LobbyMultiplayera.unity
     guid: 96c61aaa4bdaab044bf067aaf04fda29
   - enabled: 1
     path: Assets/Scenes/Map1.unity

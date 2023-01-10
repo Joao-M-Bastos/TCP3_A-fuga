@@ -10,7 +10,6 @@ public class Spawning_PlayerState : Player_StateMachine
     {
         player.gooseAnimator.SetBool("Runnig", false);
         player.playerRB.isKinematic = true;
-        player.transform.rotation = Quaternion.identity;
 
         this.countdown = 1.5f;
     }

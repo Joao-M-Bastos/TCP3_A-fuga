@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28067002, g: 0.46044242, b: 0.47017512, a: 1}
+  m_IndirectSpecularColor: {r: 0.2806698, g: 0.46044272, b: 0.47017547, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6657a0e335feb42bb637dd3fe321a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EggObj: {fileID: 4108015247888847704, guid: 359758328fef7154e81ad6486aa5b668, type: 3}
+  eggObj: {fileID: 0}
   baseCooldown: 0
 --- !u!1 &182447477
 GameObject:
@@ -1313,7 +1313,7 @@ PrefabInstance:
     - target: {fileID: 4376375550319852384, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.022371847
+      value: -0.022371849
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550420849972, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
@@ -1338,12 +1338,32 @@ PrefabInstance:
     - target: {fileID: 4376375550420849972, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7067528
+      value: 0.70675284
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550420849972, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.022371847
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376375550468635512, guid: 58ca8227458ce264691498c328aaa9db,
+        type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 0.497972
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376375550468635512, guid: 58ca8227458ce264691498c328aaa9db,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -4.997972
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376375550485937462, guid: 58ca8227458ce264691498c328aaa9db,
+        type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 0.497972
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376375550485937462, guid: 58ca8227458ce264691498c328aaa9db,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -4.997972
       objectReference: {fileID: 0}
     - target: {fileID: 4376375550720524806, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
@@ -1375,6 +1395,16 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.035223622
       objectReference: {fileID: 0}
+    - target: {fileID: 4376375550865249435, guid: 58ca8227458ce264691498c328aaa9db,
+        type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 0.497972
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376375550865249435, guid: 58ca8227458ce264691498c328aaa9db,
+        type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -4.997972
+      objectReference: {fileID: 0}
     - target: {fileID: 4376375551143102697, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1393,7 +1423,7 @@ PrefabInstance:
     - target: {fileID: 4376375551143102697, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.009546637
+      value: 0.009546636
       objectReference: {fileID: 0}
     - target: {fileID: 4376375551143102697, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
@@ -1403,7 +1433,7 @@ PrefabInstance:
     - target: {fileID: 4376375551143102697, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.009546638
+      value: -0.009546636
       objectReference: {fileID: 0}
     - target: {fileID: 5321572415424911242, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
@@ -1438,7 +1468,7 @@ PrefabInstance:
     - target: {fileID: 5321572415424911242, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.022371847
+      value: -0.022371849
       objectReference: {fileID: 0}
     - target: {fileID: 6425732317990530782, guid: 58ca8227458ce264691498c328aaa9db,
         type: 3}

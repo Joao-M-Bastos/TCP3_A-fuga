@@ -920,7 +920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4925344038618301418}
   - component: {fileID: 676695942473967661}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: bico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,8 +1281,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4376375550319852397}
-  m_LocalRotation: {x: 0.02086735, y: 0.7067988, z: -0.020867348, w: 0.70679885}
-  m_LocalPosition: {x: -9.534975, y: 1.9125153, z: -0.00000051257086}
+  m_LocalRotation: {x: 0.02237184, y: 0.7067528, z: -0.022371838, w: 0.70675284}
+  m_LocalPosition: {x: -9.999999, y: 2, z: -0.00000059604645}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1432,7 +1432,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4376375550420849974}
-  m_LocalRotation: {x: 0.020867346, y: 0.7067988, z: -0.020867344, w: 0.70679885}
+  m_LocalRotation: {x: 0.022371838, y: 0.7067528, z: -0.022371838, w: 0.7067528}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1764,7 +1764,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4376375550720524800}
-  m_LocalRotation: {x: 0.033720214, y: 0.7063023, z: -0.033720214, w: 0.70630234}
+  m_LocalRotation: {x: 0.035223614, y: 0.7062289, z: -0.035223603, w: 0.70622903}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1965,7 +1965,7 @@ GameObject:
   - component: {fileID: 934711021770054930}
   - component: {fileID: 1502178950147019905}
   - component: {fileID: 2008052571393731309}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Red Player Body
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2303,7 +2303,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4376375551143102699}
-  m_LocalRotation: {x: 0.008041552, y: 0.70706105, z: -0.008041552, w: 0.7070611}
+  m_LocalRotation: {x: 0.009546635, y: 0.7070423, z: -0.009546635, w: 0.7070424}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2508,8 +2508,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4840682584898404917}
-  m_LocalRotation: {x: 0.020867351, y: 0.7067988, z: -0.02086735, w: 0.70679885}
-  m_LocalPosition: {x: -4.7674875, y: 0.95625764, z: -0.00000025628543}
+  m_LocalRotation: {x: 0.02237184, y: 0.7067528, z: -0.022371838, w: 0.70675284}
+  m_LocalPosition: {x: -4.9999995, y: 1, z: -0.00000029802322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2732,7 +2732,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2640881808660683308}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RoupasCabeca
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3105,7 +3105,7 @@ GameObject:
   - component: {fileID: 6083490485487149283}
   - component: {fileID: 1351252020880528597}
   - component: {fileID: 7254991138778868558}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ganso.boca (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3263,7 +3263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3257495431216143035}
   - component: {fileID: 7706932975055766128}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ganso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4393,6 +4393,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: caaa85afbddf7fd4b9bdf905d0ac6640,
         type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: caaa85afbddf7fd4b9bdf905d0ac6640,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -4480,6 +4485,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moicano
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4cd88dddaf74ff54eb9ffeaa85b861c0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4cd88dddaf74ff54eb9ffeaa85b861c0,
         type: 3}

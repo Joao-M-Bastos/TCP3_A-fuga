@@ -10,6 +10,8 @@ public class RespawnScript : MonoBehaviour
 
     public void PutPlayer(Transform playerTransform)
     {
-        playerTransform.position = respawnPointPositon[Random.Range(0, respawnPointPositon.Length)].position;
+        int rand = Random.Range(0, respawnPointPositon.Length);
+        playerTransform.position = respawnPointPositon[rand].position;
+        playerTransform.rotation = respawnPointPositon[rand].rotation;
     }
 }
