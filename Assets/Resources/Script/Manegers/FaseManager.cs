@@ -13,6 +13,8 @@ public class FaseManager : MonoBehaviourPunCallbacks
 
     private int winNumber, levelNumber, maxWinNumber, loosedPlayers;
 
+    private List<int> mapsGone;
+
     GameObject[] playerObjects;
 
     private EpicBot_Controller t;
@@ -140,7 +142,28 @@ public class FaseManager : MonoBehaviourPunCallbacks
     IEnumerator NextGame()
     {
         yield return new WaitForSeconds(1);
-        PhotonNetwork.LoadLevel(2);
+
+        int rand = GenerateNewMap();
+
+        while(rand == 0)
+        {
+            rand = GenerateNewMap();
+        }
+
+        PhotonNetwork.LoadLevel("Map" + rand);
+    }
+
+    private int GenerateNewMap()
+    {
+        int r = UnityEngine.Random.Range(2, 5);
+
+        foreach(int i in mapsGone)
+        {
+            if(i == r)
+                return 0;
+        }
+        mapsGone.Add(r);
+        return r;
     }
 
     public void PlayerHasWin(GameObject playerPreFab)
