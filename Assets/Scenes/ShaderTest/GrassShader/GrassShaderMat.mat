@@ -10,6 +10,8 @@ Material:
   m_Name: GrassShaderMat
   m_Shader: {fileID: -6465566751694194690, guid: bbd8a3bd1cdba8c44aae2475a5ea0654,
     type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,7 +19,9 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -46,6 +50,7 @@ Material:
     - _GrassColor: {r: 0.40618098, g: 0.9150943, b: 0.2365432, a: 0}
     - _TrackerPosition: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &3409308142976039961
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -58,4 +63,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 9
