@@ -86,7 +86,7 @@ public class Player_Controller : MonoBehaviour
         playerRespawnScrp = GetComponent<PlayerRespawnScrp>();
         this.playerRB = this.GetComponent<Rigidbody>();
         playerRedDoll = this.GetComponent<RagdollEffect>();
-        faseManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FaseManager>();
+        //faseManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FaseManager>();
     }
 
     private void Start()
@@ -124,7 +124,9 @@ public class Player_Controller : MonoBehaviour
         this.gravityValue = 0;
         vidaParaoTitanic = 3;
 
-        switch (faseManager.ModifierID)
+        int a = 0;
+
+        switch (a)
         {
             case 0:
                 this.baseDashCoolDown -= 0.75f;
